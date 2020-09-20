@@ -1,0 +1,11 @@
+.input{
+    min-width: 20px;
+}
+:global(.button).search{
+    background: #bd1f1f;
+    border: none;
+}
+
+:global(.icon) {
+    color: white;
+}
