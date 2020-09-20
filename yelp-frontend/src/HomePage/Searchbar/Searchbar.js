@@ -5,7 +5,7 @@ export function Searchbar() {
     return(
         <div>
             <div className="field has-addons">
-                <p class="control">
+                <p className="control">
                   <a className="button is-static is-medium">Find</a>
                 </p>
                 <p className="control">

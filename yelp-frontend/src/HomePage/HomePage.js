@@ -6,11 +6,15 @@ import styles from './HomePage.module.css'
 
 
 export function HomePage(){
-    return (
+    return (    
+        <div className={styles.homepage}>
         <div>
             <Navbar />
+            <div className={styles['search-area']}>
             <img src={logo} className={styles.logo} alt='logo' />
             <Searchbar />
+            </div>
+        </div>
         </div>
     );
 }
