@@ -1,11 +1,11 @@
 import React from 'react';
-import { Navbar } from './Navbar/Navbar';
+import Navbar from './Navbar/Navbar';
 import { Searchbar } from './Searchbar/Searchbar';
 import logo from '../assets/YelpLogo.jpg'
 import styles from './HomePage.module.css'
 
 
-export function HomePage(){
+export default function HomePage(){
     return (    
         <div className={styles.homepage}>
         <div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import LoginPage from './LoginPageCustomer/LoginPage';
+import SignupPage from './SignupPageCustomer/SignupPage';
 import * as serviceWorker from './serviceWorker';
 import 'bulma/css/bulma.css';
 
