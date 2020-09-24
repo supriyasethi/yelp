@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import LoginPage from './LoginPageCustomer/LoginPage';
-import SignupPage from './SignupPageCustomer/SignupPage';
+//import Profile from './CustomerProfile/Profile';
+import {BrowserRouter} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import 'bulma/css/bulma.css';
+//import { Provider } from "react-redux";
+//import store from "./js/store/index";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter><App /></BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

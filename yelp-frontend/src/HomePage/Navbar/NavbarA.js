@@ -2,19 +2,21 @@ import React, { Component, useState } from'react';
 import styles from './Navbar.module.css'
 import {Button, TextField, Typography} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import ChatBubbleTwoToneIcon from '@material-ui/icons/ChatBubbleTwoTone';
 
 
-const Navbar = () => {  
+const NavbarA = () => {  
 
     let history = useHistory();      
 
 
-    function handleLoginClick() {
-        history.push("/login");
+    function handleLogoutClick() {
+        history.push("/");
     }
     
-    function handleSignupClick() {
-        history.push("/signup");
+    function handleProfileClick() {
+        console.log('inside handelprofile click');
+        history.push("/user");
     }
        return(
            
@@ -25,14 +27,12 @@ const Navbar = () => {
                     <span>Events</span>
                 </div>
                 <div className={styles["right"]}>
-                    <React.Fragment>
-                        <Button onClick={handleLoginClick} color="primary" style={{"color":"#0073bb", "font-size" : "12px"}}>Login</Button>
-                        <Button onClick={handleSignupClick} className='button'>Signup</Button>
-                    </React.Fragment>
+                <Button onClick={handleLogoutClick} color="primary" style={{"color":"#0073bb", "font-size" : "12px"}}>Logout</Button>
+                <Button onClick={handleProfileClick} color="primary" style={{"color":"#0073bb", "font-size" : "12px"}}>Profile</Button>
                 </div>
             </div>            
             </div>  
        );    
 }
 
-export default Navbar;
+export default NavbarA;

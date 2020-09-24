@@ -2,10 +2,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import React from 'react';
 import logo from '../assets/styleIcon.PNG';
 import {makeStyles} from '@material-ui/styles';
-import { Redirect } from 'react-router';
-import ReactDOM from 'react-dom';
-import HomePage from '../HomePage/HomePage';
-import { useRoutes, A } from "hookrouter";
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles( () => ({
     iconStyle : {
@@ -14,21 +11,22 @@ const useStyles = makeStyles( () => ({
     }
 }));   
 
-const routes = {
-    "/home": () => <HomePage />
-}
+
 const TopBar = () => {
+    let history = useHistory(); 
     const classes = useStyles();
-    const routeResult = useRoutes(routes);
+    function handleHomeClick() {
+        history.push("/home");
+    }
+    
     return (
     <AppBar position="static" style={{ background: '#d32323' }}>
         <Toolbar className={classes.iconStyle}>
-           <A href="/home"><img src={logo}  alt='logo' /></A>          
+           <img onClick={handleHomeClick} src={logo}  alt='logo' />          
         </Toolbar>
     </AppBar>
     );
 }
-const rootElement = document.getElementById("root");
-ReactDOM.render(<TopBar />, rootElement);
+
 export default TopBar;
 

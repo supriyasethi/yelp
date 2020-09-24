@@ -1,6 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Button, TextField, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,9 +13,16 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const LoginForm = () => {
+    let history = useHistory(); 
 
-    const classes = useStyles();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
+    function onSubmitHandle() {
+        history.push("/homea");
+    }
+    const classes = useStyles();        
+    
     return (
         <div className={classes.root} style={{"padding-top":"150px"}}>
             <Typography style={{"color":"#d32323", "font-weight": "bold", "font-size" : "21px"}}>Log In to Yelp</Typography>
@@ -35,19 +44,18 @@ const LoginForm = () => {
             <form noValidate autoComplete="off" className={classes.root}>
                  <TextField id="outlined-basic" label="Email" variant="outlined" size="small" 
                  style={{ "min-height": "30px", width: "300px"}} />
-                 <TextField id="outlined-basic" label="Password" variant="outlined" size="small"
+                 <TextField id="outlined-basic" label="Password" variant="outlined" size="small" type="password"
                  style={{ "min-height": "30px", width: "300px"}} />
-            </form>
+            
             <Button color="primary" style={{"color":"#0073bb", "font-size" : "11px"}}>Forgot Password?</Button>
-            <Button variant="contained" color="secondary" style={{ "min-height": "37px", width: "300px", background: '#d32323' }}>
+            <Button onClick={onSubmitHandle} variant="contained" color="secondary" style={{ "min-height": "37px", width: "300px", background: '#d32323' }}>
                 Log In
             </Button>
+            </form>
             <Typography style={{"color":"#e6e6e6", "font-size" : "10px"}}>New to Yelp?
             <Button color="primary" style={{"color":"#0073bb", "font-size" : "10px"}}>SignUp</Button></Typography>
         </div>
-        
-
-    );
+    );    
 }
 
 export default LoginForm;
