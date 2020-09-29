@@ -4,8 +4,10 @@ import TopBar from '../TopBar/TopBar';
 import ProfileHeader from './ProfileHeader.jsx';
 import UserInfo from './UserInfo.jsx';
 import UserDetails from './UserDetails.jsx';
+import { connect } from 'react-redux';
 
-export default function LoginPage(){
+ function Profile({props}){
+     console.log(props);
     return (    
         <Grid container direction="column">
             <Grid item >
@@ -28,3 +30,12 @@ export default function LoginPage(){
         </Grid>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        users : state.profile.users
+    }
+    
+}
+export default connect(mapStateToProps)(Profile);
+

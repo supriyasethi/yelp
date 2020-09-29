@@ -5,12 +5,12 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import 'bulma/css/bulma.css';
-//import { Provider } from "react-redux";
-//import store from "./js/store/index";
+import { Provider } from "react-redux";
+import store from "./js/store/index";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter><App /></BrowserRouter>
+    <Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

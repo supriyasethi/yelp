@@ -35,7 +35,7 @@ export default function ProfileHeader () {
     const classes = useStyles();
     return(    
         <div>
-            <img src={logo} className={classes.logo} alt='logo' />        
+            <img src="https://s3-media0.fl.yelpcdn.com/assets/2/www/img/b7e9d647188d/gfx/header_print.gif" className={classes.logo} alt='logo' />        
             <div className={classes.searcharea}>                      
                 <Searchbar  />
             </div>  

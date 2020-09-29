@@ -6,13 +6,13 @@ export function Searchbar() {
         <div>
             <div className="field has-addons">
                 <p className="control">
-                  <a className="button is-static is-medium">Find</a>
+                  <a href className="button is-static is-medium">Find</a>
                 </p>
                 <p className="control">
                    <input className={`input is-medium ${styles['input']}`} type="text" placeholder="Restuarants"/>
                 </p>
                 <p className="control">
-                   <a className="button is-static is-medium">Near</a>
+                   <a href className="button is-static is-medium">Near</a>
                 </p>
                 <p className="control">
                     <input className={`input is-medium ${styles['input']}`} type="text" placeholder="Where"/>

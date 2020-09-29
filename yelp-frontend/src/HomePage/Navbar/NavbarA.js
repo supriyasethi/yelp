@@ -3,20 +3,25 @@ import styles from './Navbar.module.css'
 import {Button, TextField, Typography} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import ChatBubbleTwoToneIcon from '@material-ui/icons/ChatBubbleTwoTone';
+import { setLogout,fetchProfile } from "../../js/actions/index";
+import { connect, useDispatch } from "react-redux";
 
 
-const NavbarA = () => {  
+const NavbarA = ({user}) => {  
 
     let history = useHistory();      
 
-
+    const dispatch = useDispatch();
     function handleLogoutClick() {
-        history.push("/");
+       dispatch(setLogout());       
+       history.push("/");
     }
     
     function handleProfileClick() {
-        console.log('inside handelprofile click');
-        history.push("/user");
+
+      dispatch(fetchProfile(user))
+      console.log('inside handelprofile click');
+      history.push("/user");
     }
        return(
            
@@ -35,4 +40,15 @@ const NavbarA = () => {
        );    
 }
 
-export default NavbarA;
+const mapStateToProps = (state) => {
+  return {
+      user: state.login.user
+  }
+}
+function mapDispatchToProps(dispatch) {
+    console.log('inside map dispatch')
+    return {
+      setLogout: () => dispatch(setLogout())
+    };
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarA);
