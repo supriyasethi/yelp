@@ -11,7 +11,28 @@
 }
 
 .homepage {
-    display: flex;
+    display: flex;  
     justify-content: center;
+    
 }
 
+.paperContainer {
+    height: 1356;
+    background-image: url(../assets/homepage1.jpg)
+}
+.img{
+    background: url(../assets/homepage.jpg)  no-repeat center center fixed;
+    -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+      background-size: cover;
+      height: 80vh;
+      width: 100%;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;    
+    justify-content : center;
+    align-items : center;    
+}

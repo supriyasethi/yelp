@@ -21,7 +21,7 @@ const NavbarA = ({user}) => {
 
       dispatch(fetchProfile(user))
       console.log('inside handelprofile click');
-      history.push("/user");
+      history.push("/userp");
     }
        return(
            

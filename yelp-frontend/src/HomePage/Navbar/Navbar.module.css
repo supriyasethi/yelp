@@ -11,6 +11,8 @@
 
 .left > * {
     margin-right: var(--element-spacing);
+    font-weight: bold;
+    color: white
 }
 
 .right {

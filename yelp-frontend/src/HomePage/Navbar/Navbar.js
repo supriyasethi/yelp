@@ -16,21 +16,33 @@ const Navbar = () => {
     function handleSignupClick() {
         history.push("/signup");
     }
+
+    
        return(
            
         <div>
+            <div>
             <div className={styles["nav-bar"]}>
                 <div className={styles["left"]}>
                     <span>Write a Review</span>
                     <span>Events</span>
                 </div>
                 <div className={styles["right"]}>
-                    <React.Fragment>
-                        <Button onClick={handleLoginClick} color="primary" style={{"color":"#0073bb", "font-size" : "12px"}}>Login</Button>
-                        <Button onClick={handleSignupClick} className='button'>Signup</Button>
+                    <React.Fragment >
+                        <Button onClick={handleLoginClick} color="primary" style={{
+                            "color":"white", 
+                            "font-size" : "12px",
+                            "font-weight" : "bold"}}
+                         >Log In</Button>
+                        <Button onClick={handleSignupClick} className='button' variant='outlined' style={{
+                            "color":"white", 
+                            "font-size" : "12px",
+                            "font-weight" : "bold"}}>Signup</Button>
                     </React.Fragment>
                 </div>
-            </div>            
+            </div>    
+            
+            </div>
             </div>  
        );    
 }
