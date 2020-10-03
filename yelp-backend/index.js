@@ -1,13 +1,13 @@
 //import the require dependencies
 var express = require('express');
 var app = express();
-//var mysql = require('mysql');
+var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var cors = require('cors');
 app.set('view engine', 'ejs');
-const mysql = require("./Database");
+//var mysql = require("./Database");
 //require express validation to validate the fields
 const { check, validationResult } = require("express-validator");
 
@@ -36,26 +36,18 @@ app.use(function(req, res, next) {
   });
 
   
-// var con = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "password"
-//   });
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "yelplab1"
+  });
 
-var con = {
-  host: "localhost",
-  user: "root",
-  password: "password"
-}
-mysql = Database(con);
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Database Connected!");
+  });
 
-// con.connect(function(err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-//   });
-
-var signupUser = false;
-var loginUser = false;
 
 var Users = [{
     username : "ssupriya.sethi@gmail.com",
@@ -70,90 +62,241 @@ var signupForm = [
     password  : "12345", 
     city      : "San Jose"
   }]
-var userExists;
+
+
+app.get('/userprofile', function(req,res){
+    console.log("Inside User Profile");    
+    res.writeHead(200,{
+        'Content-Type' : 'application/json'
+    });
+    console.log("Books : ",JSON.stringify(books));
+    res.json({username: req.session.username});
+    
+})
+
 
 //Route to handle Post Request Call
-app.post('/signup',function(req,res){
-  
+app.post('/signup',[check("firstname")
+.exists()
+.withMessage("FirstName is required")
+.isString()
+.withMessage("FirstName should be a string"),
+check("lastname")
+.exists()
+.withMessage("LastName is required")
+.isString()
+.withMessage("FirstName should be a string"),
+check("username")
+.exists()
+.withMessage("Username is required")
+.isEmail()
+.withMessage("Username should be email"),
+check("password")
+.exists()
+.withMessage("Password is required"),
+check("city")
+.exists()
+.withMessage("City is required")
+.isString()
+.withMessage("City should be a string"),
+],
+function(req,res){
   console.log("Inside Signup Post Request");  
-  console.log("Req Body : ",req.body);
-  signupUser = true;
-  (async () => {
-    userExists = await builSelectQueries(req.body);
-    console.log(result);
-    connection.end();
-  })();
-  //var userExists = builSelectQueries(req.body);
-  console.log('userExists', userExists);
-  if(userExists) {       
-    res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
-    req.session.user = user;
+  console.log("Req Body : ",req.body);  
+  const errors = validationResult(req).array();
+  if (errors != '') {
+    var err = JSON.stringify(errors);
+    console.log('err', err);
     res.writeHead(422,{
-        'Content-Type' : 'text/plain'
-    })
-    res.end("User is already registered!");
-  }   
-  else {       
-    buildInsertQueries(req.body);
-    res.writeHead(200,{
       'Content-Type' : 'text/plain'
-    })
-    res.end("User Registered Successfully!");
+  }); 
+  res.end(err);
+  } 
+  else {  
+    var sql = 
+      mysql.format("INSERT INTO yelplab1.user (first_name, last_name, email_id, city) VALUES('"+req.body.firstname+"','" + req.body.lastname+"','" +req.body.username+"','" +req.body.city+"')");
+      con.query(sql, function (err, result) {
+      if (err) {          
+        res.status(401).send(err);      
+  }
+      else {
+      console.log( result);
+      sql = mysql.format("INSERT INTO yelplab1.login (username, password) VALUES('"+ req.body.username+"','" +req.body.password+"')");
+      con.query(sql, function (err, result) {
+        if (err) {         
+        res.status(401).send(err);
+        }
+          else {
+            console.log( result);
+            res.writeHead(200,{
+              'Content-Type' : 'text/plain'
+          })
+            res.end("Signup successful!");
+          }        
+        });
+       }
+     });          
     }
-  });
-  
+});  
+
+
 //Route to handle Post Request Call
-app.post('/login',function(req,res){
-  
-  
+app.post('/signupr',[check("firstname")
+.exists()
+.withMessage("FirstName is required")
+.isString()
+.withMessage("FirstName should be a string"),
+check("lastname")
+.exists()
+.withMessage("LastName is required")
+.isString()
+.withMessage("FirstName should be a string"),
+check("username")
+.exists()
+.withMessage("Username is required")
+.isEmail()
+.withMessage("Username should be email"),
+check("password")
+.exists()
+.withMessage("Password is required"),
+check("city")
+.exists()
+.withMessage("City is required")
+.isString()
+.withMessage("City should be a string"),
+],
+function(req,res){
+  console.log("Inside Signup Post Request");  
+  console.log("Req Body : ",req.body);  
+  const errors = validationResult(req).array();
+  if (errors != '') {
+    var err = JSON.stringify(errors);
+    console.log('err', err);
+    res.writeHead(422,{
+      'Content-Type' : 'text/plain'
+  }); 
+  res.end(err);
+  } 
+  else {  
+    var sql = 
+      mysql.format("INSERT INTO yelplab1.restaurant (first_name, last_name, email_id, city) VALUES('"+req.body.firstname+"','" + req.body.lastname+"','" +req.body.username+"','" +req.body.city+"')");
+      con.query(sql, function (err, result) {
+      if (err) {          
+        res.status(401).send(err);      
+  }
+      else {
+      console.log( result);
+      sql = mysql.format("INSERT INTO yelplab1.loginr (username, password) VALUES('"+ req.body.username+"','" +req.body.password+"')");
+      con.query(sql, function (err, result) {
+        if (err) {         
+        res.status(401).send(err);
+        }
+          else {
+            console.log( result);
+            res.writeHead(200,{
+              'Content-Type' : 'text/plain'
+          })
+            res.end("Signup successful!");
+          }        
+        });
+       }
+     });          
+    }
+});
+
+
+
+//Route to handle Post Login Request Call
+app.post('/login',[check("username")
+.exists()
+.withMessage("Username is required")
+.isEmail()
+.withMessage("Username should be email"),
+check("password")
+.exists()
+.withMessage("Password is required")],
+function(req,res){
   console.log("Inside Login Post Request");  
   console.log("Req Body : ",req.body);
-
   loginUser = true;
-  (async () => {
-    userExists = await builSelectQueries(req.body);
-    console.log(result);
-    connection.end();
-  })();
-  //builSelectQueries(req.body);
-  console.log('userExists', userExists);
-  if(userExists) {
-    res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
-          //req.session.user = user;
+  const errors = validationResult(req).array();
+  if (errors != '') {
+    var err = JSON.stringify(errors);
+    console.log('err', err);
+    res.writeHead(422,{
+      'Content-Type' : 'text/plain'
+  }); 
+  res.end(err);
+  } else {
+  con.query("SELECT * FROM login WHERE (username = '"+ req.body.username + "' AND password = '"+ req.body.password+"')" ,(err,rows,fields) => {
+    if (!err) {
+      if(rows != '') {
+        res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
+          req.session.user = req.body.username;
           res.writeHead(200,{
               'Content-Type' : 'text/plain'
           })
           res.end("Successful Login!");
-  } else
-  {
-    console.log("Invalid");
-          //console.log(user);
-          res.writeHead(422,{
+      }
+      else {
+           res.writeHead(401,{
               'Content-Type' : 'text/plain'
           })
           res.end("Invalid Username & Password!");
-  }
-  // Users.filter(function(user){
-  //     if(user.username === req.body.loginFormInfo.Username && user.password === req.body.loginFormInfo.Password){
-  //         res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
-  //         req.session.user = user;
-  //         res.writeHead(200,{
-  //             'Content-Type' : 'text/plain'
-  //         })
-  //         res.end("Successful Login!");
-          
-  //     }
-  //     else {
-          
-  //         console.log("Invalid");
-  //         console.log(user);
-  //         res.writeHead(422,{
-  //             'Content-Type' : 'text/plain'
-  //         })
-  //         res.end("Invalid Username & Password!");
-  //       }
-  //     })
-    });
+      }
+      console.log(rows); }
+    else
+      console.log(err);
+  });
+}
+});  
+
+//Route to handle Post Login Request Call
+app.post('/loginr',[check("username")
+.exists()
+.withMessage("Username is required")
+.isEmail()
+.withMessage("Username should be email"),
+check("password")
+.exists()
+.withMessage("Password is required")],
+function(req,res){
+  console.log("Inside Login Post Request");  
+  console.log("Req Body : ",req.body);
+  loginUser = true;
+  const errors = validationResult(req).array();
+  if (errors != '') {
+    var err = JSON.stringify(errors);
+    console.log('err', err);
+    res.writeHead(422,{
+      'Content-Type' : 'text/plain'
+  }); 
+  res.end(err);
+  } else {
+  con.query("SELECT * FROM loginr WHERE (username = '"+ req.body.username + "' AND password = '"+ req.body.password+"')" ,(err,rows,fields) => {
+    if (!err) {
+      if(rows != '') {
+        res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
+          req.session.user = req.body.username;
+          res.writeHead(200,{
+              'Content-Type' : 'text/plain'
+          })
+          res.end("Successful Login!");
+      }
+      else {
+           res.writeHead(401,{
+              'Content-Type' : 'text/plain'
+          })
+          res.end("Invalid Username & Password!");
+      }
+      console.log(rows); }
+    else
+      console.log(err);
+  });
+}
+});  
+
+
 
 
 app.post('/profile',function(req,res){
@@ -187,65 +330,6 @@ app.post('/profile',function(req,res){
           })
         });
 
-function buildInsertQueries(info) {
-
-  console.log('inside build insert queries');
-  console.log('signupuser', signupUser);
-  //console.log('signupform.firstname', signupForm[firstname]);
-  if (signupUser) {
-    var sql = 
-    mysql.format("INSERT INTO yelplab1.user (first_name, last_name, email_id, city) VALUES('"+info.firstname+"','" + info.lastname+"','" +info.username+"','" +info.city+"')");
-    con.query(sql, function (err, result) {
-       if (err) throw err;
-       else {
-       console.log( result);
-       sql = mysql.format("INSERT INTO yelplab1.login (user_id, username, password) VALUES('"+result.insertId+"','"+ info.username+"','" +info.password+"')");
-       con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log( result);
-       });
-       }
-     });
-  }
-}
-
-
-function builSelectQueries(info) {
-
-  console.log('inside build select queries');
-  console.log('loginUser', loginUser);
-  var sql = "SELECT user_id FROM yelplab1.login WHERE(username = '"+ info.username + "')" ;
-  mysql.query(sql)
-  .then( rows => {
-    console.log('rows', rows);
-  })
-  .catch(err => {
-    console.log('err',err);
-  });  
-  //return new Promise((res, rej) => {
-  
-  // if (signupUser) {
-  //   var sql = 
-  //   mysql.format("SELECT user_id FROM yelplab1.login WHERE(username = '"+ info.username + "')" );
-  //   con.query(sql, function (err, result) {
-  //      if (err) throw err;
-  //      console.log( result);
-  //      });
-  //   }
-
-
-  // if (loginUser) {
-  //   console.log('inside login select query')
-  //   var sql = 
-  //   mysql.format("SELECT user_id FROM yelplab1.login WHERE(username = '"+ info.username + "')" );
-  //   con.query(sql, function (err, result) {
-  //     if (err) throw err;
-  //          console.log('result', result);
-  //          return result;
-  //       });
-  //     }
-  //   });
-} 
   //start your server on port 3001
 app.listen(3001);
 console.log("Server Listening on port 3001");

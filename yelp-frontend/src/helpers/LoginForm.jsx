@@ -3,7 +3,9 @@ import {Button, TextField, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { setLogin } from "../js/actions/index";
+//import Cookies from 'universal-cookie';
+import cookie from 'react-cookies';
+//import { setLogin } from "../js/actions/index";
 
 
 
@@ -17,13 +19,14 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = ({title, sender}) => {
     let history = useHistory(); 
-   // let authFlag = false;
-   // let authErr = '';
-
-    let redirect = '';
-    //const dispatch = useDispatch();
+    var httpURL = '';
+    
+     //const dispatch = useDispatch();
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [authErr, setauthErr] = useState('');
+    const [usernameErr, setUserNameErr] = useState('');
+    const [passwordErr, setPasswordErr] = useState('');
 
     // if(loginsuccess == 'true') {
     //     history.push("/homea");
@@ -36,15 +39,25 @@ const LoginForm = ({title, sender}) => {
     function onSubmitHandle() {
         let loginFormInfo = {
             'username' : username,
-            'uassword' : password,
+            'password' : password,
            // 'sender'   : sender
         }
+        
+        setUserNameErr('');
+        setPasswordErr('');
        // dispatch(setLogin({ loginFormInfo }));
        // loginFormInfo = {};
     
-        history.push('/homea');
+        //history.push('/homea');
+        if (sender === 'user') {
+            httpURL = 'http://localhost:3001/login';
+        } 
+        if (sender === 'biz')
+        {
+            httpURL = 'http://localhost:3001/loginr';
+        }
         axios.defaults.withCredentials = true;
-        axios.post('http://localhost:3001/login',loginFormInfo)
+        axios.post(httpURL,loginFormInfo)
         .then(response => {
             console.log("Status code: ", response.status);
             if(response.status === 200) {
@@ -53,12 +66,27 @@ const LoginForm = ({title, sender}) => {
         })
         .catch(error => { 
             console.log(error.response)
-            if(error.response.status === 422) {
-    //                authFlag = true;
-      //          authErr = <p class="alert alert-danger" role="alert">{error.response.data}</p>
-        //        return authErr;
+            if(error.response.status === 401) {
+                //authFlag = true;
+                setauthErr(<p class="alert alert-danger" role="alert">{error.response.data}</p>);
+                //return authErr;
                 console.log(error.response.data);  
-        };
+                console.log('authErr', authErr);
+        }
+            if(error.response.status === 422) {
+                for(var i = 0; i < error.response.data.length; i++) {
+                    if (error.response.data[i].param === 'username') {
+                        //errbook = error.response.data[i].msg;
+                        setUserNameErr(
+                            <p class="alert alert-danger" role="alert">{error.response.data[i].msg}</p>);
+                    }
+                    if (error.response.data[i].param === 'Title') {
+                        //errtitle = error.response.data[i].msg;
+                        setPasswordErr(
+                            <p class="alert alert-danger" role="alert">{error.response.data[i].msg}</p>);
+                    }
+                }
+            }
     });        
     }    
 
@@ -70,6 +98,10 @@ const LoginForm = ({title, sender}) => {
         }
     }
 
+    if (cookie.load('cookie')) {
+        history.push("/homea");
+        //redirectVar = <Redirect to= "/home"/>
+    }
     const classes = useStyles();        
     
     return (
@@ -116,21 +148,21 @@ const LoginForm = ({title, sender}) => {
             <form noValidate autoComplete="off" className={classes.root}>
                  <TextField id="outlined-basic" label="Email" variant="outlined" size="small" 
                  style={{ height: "30px", width: "300px"}}
-                 onChange={e => setUserName(e.target.value)} />
+                 onChange={e => setUserName(e.target.value)} /> {usernameErr}
                  <TextField id="outlined-basic" label="Password" variant="outlined" size="small" type="password"
                  style={{ height: "30px", width: "300px"}}
-                 onChange={e => setPassword(e.target.value)} />
+                 onChange={e => setPassword(e.target.value)} /> {passwordErr}
             
             <Button color="primary" style={{
                 color:"#0073bb", 
                 fontSize : "11px"}}>Forgot Password?</Button>
             <Button onClick={onSubmitHandle} variant="contained" color="secondary" style={{ "min-height": "37px", width: "300px", background: '#d32323' }}>
                 Log In
-            </Button>
-            <div>
-            {redirect}
-            </div>
+            </Button>            
             </form>
+            <div>
+            {authErr}
+            </div>
             <Typography style={{
                 color:"#e6e6e6", 
                 fontSize : "10px"}}>New to Yelp?

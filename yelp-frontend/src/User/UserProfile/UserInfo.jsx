@@ -3,7 +3,7 @@ import {IconButton, Avatar} from '@material-ui/core';
 import {makeStyles} from '@material-ui/styles';
 import {Typography} from '@material-ui/core';
 import { connect, useDispatch } from "react-redux";
-
+import axios from 'axios';
 
 const useStyles = makeStyles( () => ({
     container : {
@@ -23,12 +23,16 @@ const useStyles = makeStyles( () => ({
       }
 }));
 
-
-
  function UserInfo ({firstname, zipcode}) {
 
     let [username, setUsername] = useState();
-
+    let [curruser, setcurruser] = useState();
+    axios.get('http://localhost:3001/userprofile')
+      .then((response) => {
+         //update the state with the response data
+       setcurruser(response.data) 
+       console.log('curruser', curruser);
+      });
     const classes = useStyles();
     
     return(           

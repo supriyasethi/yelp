@@ -2,6 +2,7 @@ import React, { Component, useState } from'react';
 import styles from './Navbar.module.css'
 import {Button, TextField, Typography} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import cookie from 'react-cookies';
 
 
 const Navbar = () => {  
@@ -15,8 +16,7 @@ const Navbar = () => {
     
     function handleSignupClick() {
         history.push("/signup");
-    }
-
+    }    
     
        return(
            

@@ -7,11 +7,14 @@ import styles from './HomePage.module.css';
 import { useHistory } from 'react-router-dom';
 
 
+
 export default function HomePage(){
     let history = useHistory();  
+    
     function handleBusiness() {
         history.push("/loginbiz");
     }
+
     return (  
         <div className={styles.img} >
             <div className={styles.button}>     

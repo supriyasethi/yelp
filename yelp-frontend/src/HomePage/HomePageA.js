@@ -6,6 +6,7 @@ import styles from './HomePage.module.css';
 
 export default function HomePage(){
     return (    
+        <div className={styles.img} >
         <div className={styles.homepage}>
         <div>
             <NavbarA />
@@ -14,6 +15,7 @@ export default function HomePage(){
             <Searchbar />
             </div>
         </div>            
+        </div>
         </div>
     );
 }

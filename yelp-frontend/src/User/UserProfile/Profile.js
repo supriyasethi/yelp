@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
  function Profile({props}){
      console.log(props);
+     
     return (    
         <Grid container direction="column">
             <Grid item >

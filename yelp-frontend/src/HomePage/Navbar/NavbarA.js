@@ -2,27 +2,29 @@ import React, { Component, useState } from'react';
 import styles from './Navbar.module.css'
 import {Button, TextField, Typography} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import cookie from 'react-cookies';
 import ChatBubbleTwoToneIcon from '@material-ui/icons/ChatBubbleTwoTone';
-import { setLogout,fetchProfile } from "../../js/actions/index";
-import { connect, useDispatch } from "react-redux";
+//import { setLogout,fetchProfile } from "../../js/actions/index";
+//import { connect, useDispatch } from "react-redux";
 
 
 const NavbarA = ({user}) => {  
 
     let history = useHistory();      
 
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     function handleLogoutClick() {
-       dispatch(setLogout());       
+      cookie.remove('cookie', { path: '/' })
+       //dispatch(setLogout());       
        history.push("/");
     }
     
     function handleProfileClick() {
 
-      dispatch(fetchProfile(user))
+      //dispatch(fetchProfile(user))
       console.log('inside handelprofile click');
       history.push("/userp");
-    }
+    }   
        return(
            
         <div>
@@ -40,15 +42,17 @@ const NavbarA = ({user}) => {
        );    
 }
 
-const mapStateToProps = (state) => {
-  return {
-      user: state.login.user
-  }
-}
-function mapDispatchToProps(dispatch) {
-    console.log('inside map dispatch')
-    return {
-      setLogout: () => dispatch(setLogout())
-    };
-  }
-export default connect(mapStateToProps, mapDispatchToProps)(NavbarA);
+// const mapStateToProps = (state) => {
+//   return {
+//       user: state.login.user
+//   }
+// }
+// function mapDispatchToProps(dispatch) {
+//     console.log('inside map dispatch')
+//     return {
+//       setLogout: () => dispatch(setLogout())
+//     };
+//   }
+
+//export default connect(mapStateToProps, mapDispatchToProps)(NavbarA);
+export default NavbarA;
