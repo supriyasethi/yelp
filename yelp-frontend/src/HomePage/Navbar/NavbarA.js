@@ -1,9 +1,9 @@
-import React, { Component, useState } from'react';
+import React, { Component, useState, useEffect } from'react';
 import styles from './Navbar.module.css'
 import {Button, TextField, Typography} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import cookie from 'react-cookies';
-import ChatBubbleTwoToneIcon from '@material-ui/icons/ChatBubbleTwoTone';
+import axios from 'axios';
 //import { setLogout,fetchProfile } from "../../js/actions/index";
 //import { connect, useDispatch } from "react-redux";
 
@@ -11,7 +11,8 @@ import ChatBubbleTwoToneIcon from '@material-ui/icons/ChatBubbleTwoTone';
 const NavbarA = ({user}) => {  
 
     let history = useHistory();      
-
+    let curruser = '';
+    let [data, setData] = useState();
     //const dispatch = useDispatch();
     function handleLogoutClick() {
       cookie.remove('cookie', { path: '/' })
@@ -22,8 +23,15 @@ const NavbarA = ({user}) => {
     function handleProfileClick() {
 
       //dispatch(fetchProfile(user))
-      console.log('inside handelprofile click');
-      history.push("/userp");
+      console.log('inside handleprofile click');
+      // axios.get('http://localhost:3001/userp')
+      //   .then((response) => {
+      //  //update the state with the response data
+      //   curruser = response.data.username
+      //   setData({curruser});
+      //   console.log(data);        
+      // });               
+       history.push("/userp");
     }   
        return(
            
@@ -34,8 +42,14 @@ const NavbarA = ({user}) => {
                     <span>Events</span>
                 </div>
                 <div className={styles["right"]}>
-                <Button onClick={handleLogoutClick} color="primary" style={{"color":"#0073bb", "font-size" : "12px"}}>Logout</Button>
-                <Button onClick={handleProfileClick} color="primary" style={{"color":"#0073bb", "font-size" : "12px"}}>Profile</Button>
+                <Button onClick={handleLogoutClick} color="primary" style={{
+                            "color":"white", 
+                            "font-size" : "12px",
+                            "font-weight" : "bold"}}>Logout</Button>
+                <Button onClick={handleProfileClick} color="primary" style={{
+                            "color":"white", 
+                            "font-size" : "12px",
+                            "font-weight" : "bold"}}>Profile</Button>
                 </div>
             </div>            
             </div>  

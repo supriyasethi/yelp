@@ -34,7 +34,7 @@ const TopBar = () => {
         <AppBar position="static" color='default' >
          <Toolbar className={classes.iconStyle}>
             <img onClick={handleHomeClick} src={logo}  alt='logo' />    
-            <Typography>for business</Typography>   
+            <Typography style={{fontWeight:"bold", color:"#d32323"}}>Yelp for business</Typography>   
             <div className={styles["right"]}>
                     <MailOutlinedIcon />
                     <NotificationsOutlinedIcon />

@@ -1,7 +1,8 @@
 import React from 'react';
-import TopBar from '../TopBar/TopBar';
+import TopBar from '../../TopBar/TopBar';
 import {Divider, Grid} from '@material-ui/core';
 import ProfileBody from './ProfileBody'
+import RestaurantMenu from './RestaurantMenu'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +27,13 @@ export default function Profile(){
                 <Grid xs={0} sm={1}/>
                 <Grid xs={12} sm={10}>
                 <ProfileBody />
+                </Grid>
+                <Grid xs={0} sm={1}/>
+            </Grid>
+            <Grid item container justify="center">
+                <Grid xs={0} sm={1}/>
+                <Grid xs={12} sm={10}>
+                <RestaurantMenu />
                 </Grid>
                 <Grid xs={0} sm={1}/>
             </Grid>

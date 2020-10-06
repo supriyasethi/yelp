@@ -17,16 +17,14 @@ const SignupForm = () => {
     let history = useHistory();
     
     const [state, setState] = React.useState({
-        firstname: "",
-        lastname: "",
+        name: "",        
         username: "",
         password: "",
         city    : ""
       });    
 
-    const [authErr, setauthErr] = useState('');
-    const [firstnameErr, setFirstNameErr] = useState('');
-    const [lastnameErr, setLastNameErr] = useState('');
+    const [authErr, setauthErr] = useState('');    
+    const [nameErr, setNameErr] = useState('');
     const [usernameErr, setUserNameErr] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
     const [cityErr, setCityErr] = useState('');
@@ -86,14 +84,10 @@ const SignupForm = () => {
               setPasswordErr(
                   <p class="alert alert-danger" role="alert">{error.response.data[i].msg}</p>);
           }
-          if (error.response.data[i].param === 'firstname') {                
-              setFirstNameErr(
+          if (error.response.data[i].param === 'name') {                
+              setNameErr(
                   <p class="alert alert-danger" role="alert">{error.response.data[i].msg}</p>);
-          }
-          if (error.response.data[i].param === 'lastname') {                
-              setLastNameErr(
-                  <p class="alert alert-danger" role="alert">{error.response.data[i].msg}</p>);
-          }
+          }          
           if (error.response.data[i].param === 'city') {                
               setCityErr(
                   <p class="alert alert-danger" role="alert">{error.response.data[i].msg}</p>);
@@ -107,13 +101,10 @@ const SignupForm = () => {
     return (
         
         <div className={classes.root} style={{"padding-top":"150px"}}>          
-            <form noValidate autoComplete="off" className={classes.root} >
-                <TextField id="outlined-basic" label="First Name" variant="outlined" size="small" type="text"
-                 style={{ height: "30px", width: "120px"}} name="firstname" value={state.firstname}
-                 onChange={handleChange} /> {firstnameErr}
-                <TextField id="outlined-basic" label="Last Name" variant="outlined" size="small"  type="text"
-                 style={{ height: "30px", width: "120px"}} name="lastname" value={state.lastname}
-                 onChange={handleChange} /> {lastnameErr}
+            <form noValidate autoComplete="off" className={classes.root} >                
+                <TextField id="outlined-basic" label="Name" variant="outlined" size="small"  type="text"
+                 style={{ height: "30px", width: "120px"}} name="name" value={state.name}
+                 onChange={handleChange} /> {nameErr}
                  <TextField id="outlined-basic" label="Email" variant="outlined" size="small" type="email"
                  style={{ height: "30px", width: "300px"}} name="username" value={state.username}
                  onChange={handleChange} />  {usernameErr}                

@@ -61,7 +61,10 @@ const LoginForm = ({title, sender}) => {
         .then(response => {
             console.log("Status code: ", response.status);
             if(response.status === 200) {
-                history.push("/homea");
+                console.log('login response', response);
+                if (sender === 'user') {
+                history.push("/homea"); }
+                else { history.push("/bizp"); }
             }
         })
         .catch(error => { 
@@ -93,7 +96,7 @@ const LoginForm = ({title, sender}) => {
     function onSubmitSignup() {        
         if (sender === 'user') {
         history.push("/signup"); }
-        else if (sender == 'biz') {
+        else if (sender === 'biz') {
             history.push("/signupbiz");
         }
     }

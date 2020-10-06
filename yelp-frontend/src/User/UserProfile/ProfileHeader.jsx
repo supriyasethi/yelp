@@ -2,7 +2,7 @@ import React from 'react';
 import {makeStyles} from '@material-ui/styles';
 import { Searchbar } from '../../Searchbar/Searchbar';
 import {Typography} from '@material-ui/core';
-//import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles( () => ({
     searcharea: {
@@ -30,10 +30,16 @@ const useStyles = makeStyles( () => ({
 
 
 export default function ProfileHeader () {
+    let history = useHistory();
     const classes = useStyles();
+
+    function handleHomeClick() {
+        history.push("/homea");
+    }
     return(    
         <div>
-            <img src="https://s3-media0.fl.yelpcdn.com/assets/2/www/img/b7e9d647188d/gfx/header_print.gif" className={classes.logo} alt='logo' />        
+            <img  onClick={handleHomeClick}
+            src="https://s3-media0.fl.yelpcdn.com/assets/2/www/img/b7e9d647188d/gfx/header_print.gif" className={classes.logo} alt='logo' />        
             <div className={classes.searcharea}>                      
                 <Searchbar  />
             </div>  
