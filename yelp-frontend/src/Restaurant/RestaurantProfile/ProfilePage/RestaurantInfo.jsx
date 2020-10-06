@@ -51,7 +51,7 @@ function RestaurantInfo() {
 	let [picutre, setpicture] = useState(null);
 
 	useEffect(() => {
-		axios.get("http://localhost:3001/bizp").then((response) => {
+		axios.get("http://localhost:3001/get/bizp").then((response) => {
 			//update the state with the response data
 			console.log(response);
 			// setname(response.data[0].name);

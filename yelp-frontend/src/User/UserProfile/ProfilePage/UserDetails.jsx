@@ -51,7 +51,7 @@ export default function InsetDividers() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:3001/userp')
+    axios.get('http://localhost:3001/get/userp')
       .then((response) => {
          //update the state with the response data
         console.log(response);

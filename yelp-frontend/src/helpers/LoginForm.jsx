@@ -50,11 +50,11 @@ const LoginForm = ({title, sender}) => {
     
         //history.push('/homea');
         if (sender === 'user') {
-            httpURL = 'http://localhost:3001/login';
+            httpURL = 'http://localhost:3001/login/user';
         } 
         if (sender === 'biz')
         {
-            httpURL = 'http://localhost:3001/loginr';
+            httpURL = 'http://localhost:3001/login/biz';
         }
         axios.defaults.withCredentials = true;
         axios.post(httpURL,loginFormInfo)

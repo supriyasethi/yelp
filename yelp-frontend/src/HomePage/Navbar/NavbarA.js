@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from'react';
 import styles from './Navbar.module.css'
-import {Button, TextField, Typography} from '@material-ui/core';
+import {Button, TextField, Typography, Link} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import cookie from 'react-cookies';
 import axios from 'axios';
@@ -19,6 +19,12 @@ const NavbarA = ({user}) => {
        //dispatch(setLogout());       
        history.push("/");
     }
+
+    function handleDisplayEvents() {
+        history.push({
+			pathname: '/eventsdisplay',
+			state: {data: "homea"}});
+	}
     
     function handleProfileClick() {
 
@@ -38,8 +44,30 @@ const NavbarA = ({user}) => {
         <div>
             <div className={styles["nav-bar"]}>
                 <div className={styles["left"]}>
-                    <span>Write a Review</span>
-                    <span>Events</span>
+                <Link
+							component='button'
+                            variant='body2'
+                            style={{
+                                color: "white",
+								fontSize: "14px",
+								fontWeight: "bold",
+                            }}
+							onClick={() => {
+								console.info("I'm a button.");
+							}}>
+							Write a Review
+						</Link>
+                        <Link
+							component='button'
+                            variant='body2'
+                            style={{
+                                color: "white",
+								fontSize: "14px",
+								fontWeight: "bold",
+                            }}
+							onClick={handleDisplayEvents}>
+							Events
+						</Link>						
                 </div>
                 <div className={styles["right"]}>
                 <Button onClick={handleLogoutClick} color="primary" style={{

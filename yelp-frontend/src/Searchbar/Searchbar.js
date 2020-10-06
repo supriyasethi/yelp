@@ -20,7 +20,7 @@ export function Searchbar() {
 
 
     function handleSearch() {
-        axios.get('http://localhost:3001/home',{
+        axios.get('http://localhost:3001/get/home',{
             params: {
                 keyword: state.find,
                 location: state.where

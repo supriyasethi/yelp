@@ -1,100 +1,110 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Typography, Divider } from "@material-ui/core";
+import { Typography, Divider, Avatar } from "@material-ui/core";
 //import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import logo from "../../../assets/homepage1.jpg";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import axios from "axios";
 
-const useStyles = makeStyles(() => ({
-	root: {  
-        marginLeft: 300,      
-		maxWidth: 200,
-		height: 200,
-	},
-	media: {
-		height: 50, // as an example I am modifying width and height
-		paddingTop: "60%", // 16:9
-	},
+const useStyles = makeStyles((theme) => ({	
+	root: {
+		marginLeft: 300,
+		width: '100%',
+		maxWidth: '36ch',		
+	  },
+	  inline: {
+		display: 'inline',
+	  },
 }));
 
 function RestaurantMenu() {
 	let history = useHistory();
-	let [] = useState("");
-	let [] = useState("");
-	let [] = useState("");
-	let [] = useState("");
-	let [] = useState(null);
+
+	let [state, setState] = React.useState({
+		menu: []	
+	});
+
+	var newMenu = [];	
+
+	useEffect(() => {
+		axios.get("http://localhost:3001/get/menu").then((response) => {
+			//update the state with the response data			
+			for (var i = 0; i < response.data.length; i++) {
+				var temp = response.data[i];	
+				newMenu.push({
+					id: i,
+					items: temp
+				});							
+			}	
+			setState({
+				menu: newMenu
+			});	
+
+		});
+	}, []);
 	
-
-
-	// useEffect(() => {
-	// 	axios.get("http://localhost:3001/bizp").then((response) => {
-	// 		//update the state with the response data
-	// 		console.log(response);
-	// setname(response.data[0].name);
-	// setaddress(response.data[0].address);
-	// settiming(response.data[0].timing);
-	// setdescription(response.data[0].description);
-	// if(response.data[0].profile_img != null)     {
-	//   setpicture(<Avatar
-	//     variant="square"
-	//     src="https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png"
-	//      style={{
-	//      margin: "10px",
-	//      width: "220px",
-	//      height: "220px",
-	//    }}
-	//    />);
-	// } else {
-	//   setpicture(<img src={response.data[0].profileimg} style={{
-	//                   margin: "10px",
-	//                   width: "100px",
-	//                   height: "100px",
-	//                 }} />);
-	// }
-	// 	});
-	// }, []);
-
 	const classes = useStyles();
-
 
 	return (
 		<div className={classes.root}>
-            <div>
-            <Typography style={{
-                   color:"#d32323", 
-                   fontWeight: "bold", 
-                    fontSize : "20px",
-                    justifyContent: "center"
-                   }}>Restaurant Menu</Typography>       
-                </div>
-                <div>
-                <Divider />
-                </div>
-                <div>
-			<Card >
-				<CardMedia className={classes.media} image={logo} title='Paella dish' />
-				<CardContent>
-					<Typography
-						variant='body2'
-						color='default'
-						component='p'
-						style={{ fontWeight: "bold" }}>
-						Paneer Tikka Masala
-					</Typography>
-					<Typography
-						variant='body2'
-						color='textSecondary'
-						component='p'
-						style={{ fonstSize: "10" }}>
-						Ingredients: Paneer, Onion, Tomato, Cream
-					</Typography>
-				</CardContent>
-			</Card>
-            </div>
+			<div>
+				<Typography
+					style={{
+						color: "#d32323",
+						fontWeight: "bold",
+						fontSize: "20px",
+						justifyContent: "center",
+					}}>
+					Restaurant Menu
+				</Typography>
+			</div>
+			<div>
+				<Divider />
+			</div>
+
+			<List >
+				{state.menu.map((listitem) => (	
+					
+					<ListItem alignItems='flex-start' key={listitem.id}>
+						<ListItemAvatar>
+							<Avatar alt='Remy Sharp' src={logo} />
+						</ListItemAvatar>
+						<ListItemText
+							primary={listitem.items.dishName}
+							secondary={
+								<React.Fragment>
+									<div>
+									<Typography
+										component='span'
+										variant='body2'
+										className={classes.inline}
+										color='textPrimary'>
+										Price:$
+									</Typography>
+									{listitem.items.price}
+									</div>
+									<div>
+									<Typography
+										component='span'
+										variant='body2'
+										className={classes.inline}
+										color='textPrimary'>
+										Ingredients:
+									</Typography>
+									{listitem.items.ingredients}
+									</div>
+								</React.Fragment>
+							}
+						/>
+					</ListItem>
+					
+				))}
+			</List>
+			<Divider />
 		</div>
 	);
 }

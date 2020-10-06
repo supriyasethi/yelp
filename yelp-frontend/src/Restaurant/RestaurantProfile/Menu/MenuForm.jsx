@@ -80,7 +80,7 @@ const useStyles = makeStyles( (theme) => ({
         // }
 
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/insertmenu', state)
+         axios.post('http://localhost:3001/insert/menu', state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {

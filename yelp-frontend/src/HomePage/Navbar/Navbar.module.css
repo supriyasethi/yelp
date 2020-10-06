@@ -10,7 +10,7 @@
 }
 
 .left > * {
-    margin-right: var(--element-spacing);
+    margin-right: 2rem;
     font-weight: bold;
     color: white
 }

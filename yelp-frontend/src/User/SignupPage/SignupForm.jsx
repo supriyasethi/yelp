@@ -58,7 +58,7 @@ const SignupForm = () => {
         console.log('state', state);
         
          axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/signup', state)
+         axios.post('http://localhost:3001/signup/user', state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {

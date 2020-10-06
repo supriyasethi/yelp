@@ -74,13 +74,10 @@ const useStyles = makeStyles( (theme) => ({
 
     function handleSaveChanges() {
 
-        // let profileInfo = {
-        //     state,
-        //     picture
-        // }
+        console.log('state',state);
 
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/insertevent', state)
+         axios.post('http://localhost:3001/insert/event', state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {
