@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Avatar } from "@material-ui/core";
-import { createGenerateClassName, makeStyles } from "@material-ui/styles";
+//import { IconButton, Avatar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import { Typography, Button, Divider } from "@material-ui/core";
 //import { connect, useDispatch } from "react-redux";
 import axios from "axios";
@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import logo from "../../../assets/homepage1.jpg";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
+//import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 

@@ -34,6 +34,6 @@ router.post(
 	loginController.loginbiz
 );
 
-router.use(auth);
+//router.use(auth);
 
 module.exports = router;

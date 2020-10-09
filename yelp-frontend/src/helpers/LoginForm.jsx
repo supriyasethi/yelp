@@ -60,7 +60,7 @@ const LoginForm = ({title, sender}) => {
         axios.post(httpURL,loginFormInfo)
         .then(response => {
             console.log("Status code: ", response.status);
-            if(response.status === 200) {
+            if(response.status === 200) {                
                 console.log('login response', response);
                 if (sender === 'user') {
                 history.push("/homea"); }
@@ -94,13 +94,14 @@ const LoginForm = ({title, sender}) => {
     }    
 
     function onSubmitSignup() {        
+        
         if (sender === 'user') {
         history.push("/signup"); }
         else if (sender === 'biz') {
             history.push("/signupbiz");
         }
     }
-
+    
     if (cookie.load('cookie')) {
         history.push("/homea");
         //redirectVar = <Redirect to= "/home"/>

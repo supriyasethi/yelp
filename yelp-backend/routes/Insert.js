@@ -10,6 +10,8 @@ const insertController = require("../controller/insert");
 //Route to handle Post Request Call
 router.post('/event', insertController.insertevent);     
 
+router.post('/eventregister', insertController.inserteventregister);
+
 //Route to handle Post insertMenu Request Call
 router.post('/menu', insertController.insertmenu); 
 

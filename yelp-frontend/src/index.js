@@ -8,6 +8,7 @@ import 'bulma/css/bulma.css';
 import { Provider } from "react-redux";
 import store from "./js/store/index";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>

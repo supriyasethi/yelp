@@ -28,14 +28,14 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(session({
     store               : new RedisStore({client: redisClient}),
     secret              : 'cmpe273_kafka_passport_mongo',
-    resave              : false, // Forces the session to be saved back to the session store, even if the session was never modified during the request
-    saveUninitialized   : false, // Force to save uninitialized session to db. A session is uninitialized when it is new but not modified.
+    resave              : true, // Forces the session to be saved back to the session store, even if the session was never modified during the request
+    saveUninitialized   : true, // Force to save uninitialized session to db. A session is uninitialized when it is new but not modified.
     duration            : 60 * 60 * 1000,    // Overall duration of Session : 30 minutes : 1800 seconds
     activeDuration      :  5 * 60 * 1000,
     name                : 'cookie',
     cookie              : {
           secure: false, //if true, only transmits cookie over https
-          httpOnly: true, // if true: prevents client side JS from reading the cookie
+          httpOnly: false, // if true: prevents client side JS from reading the cookie
           maxAge : 1000 * 60 * 30 // session max age in milliseconds
     }
 }));

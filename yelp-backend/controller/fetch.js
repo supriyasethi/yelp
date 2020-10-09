@@ -1,4 +1,5 @@
 var con = require('../connection');
+//var con = require('../pool');
 const mysql = require('mysql');
 
 function fetchhome(req,res) {
@@ -43,27 +44,54 @@ function fetchmenu(req, res) {
 });
 }
 
+// function fetchevent(req, res) {
+//   console.log("Inside Event Get request"); 
+// let location = req.query.location;
+// let dish = req.query.keyword;
+// console.log(req.session.restaurantId);
+// var sql = 
+//     mysql.format("SELECT * FROM events"); 
+//   // mysql.format("SELECT * FROM restaurant A INNER JOIN events B \
+//   //       ON A.restaurantId = B.restaurantId \
+//   //       WHERE B.restaurantId = " +req.session.restaurantId);          
+//   con.query(sql, function (err, result) {
+//     if (err) { 
+//       console.log(err);         
+//       res.status(401).send(err);      
+//     } else
+//     {    
+//       console.log(result);                          
+//       res.status(200).send(result);
+//     }
+// });
+// }
+
 function fetchevent(req, res) {
   console.log("Inside Event Get request"); 
-let location = req.query.location;
-let dish = req.query.keyword;
-console.log(req.session.restaurantId);
-var sql = 
-    mysql.format("SELECT * FROM events"); 
-  // mysql.format("SELECT * FROM restaurant A INNER JOIN events B \
-  //       ON A.restaurantId = B.restaurantId \
-  //       WHERE B.restaurantId = " +req.session.restaurantId);          
-  con.query(sql, function (err, result) {
-    if (err) { 
-      console.log(err);         
-      res.status(401).send(err);      
-    } else
-    {    
-      console.log(result);                          
-      res.status(200).send(result);
-    }
-});
+  var sql = 
+      mysql.format("SELECT * FROM events"); 
+  
+  con.getConnection(function(err,connection){
+        if (err) {
+          connection.release();
+          throw err;
+        }   
+        connection.query(sql,function(err,rows){
+            if(!err) {
+                callback(null, {rows: rows});
+            }           
+            connection.release();
+
+        });
+        connection.on('error', function(err) {      
+              throw err;
+              return;     
+        });
+    });
 }
+
+
+  
 
 function fetchuserp(res, req) {
     console.log("Inside User Profile"); 

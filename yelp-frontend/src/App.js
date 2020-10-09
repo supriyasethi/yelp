@@ -8,7 +8,6 @@ import RestaurantMenu from './Restaurant/RestaurantProfile/Menu/Menu.js'
 import Events from './Restaurant/RestaurantProfile/Events/Events.js'
 import HomePageA from './HomePage/HomePageA.js'
 import EventsDisplay from './Events/EventsDisplay.js'
-import EventsRegister from './Events/EventsRegister.js'
 import {Switch, Route} from 'react-router-dom';
 import LoginUser from './User/LoginPage/LoginUser';
 import LoginRestaurant from './Restaurant/LoginPage/LoginRestaurant';
@@ -30,8 +29,7 @@ function App() {
        <Route path="/bizp" component={RestaurantProfile}/>
        <Route path="/menu" component={RestaurantMenu}/>
        <Route path="/events" component={Events}/>
-       <Route path="/eventsdisplay" component={EventsDisplay}/>
-       <Route path="/eventsregister" component={EventsRegister}/>
+       <Route path="/eventsdisplay" component={EventsDisplay}/>       
        <Route path="/" component={HomePage}/>
      </Switch>    
   );

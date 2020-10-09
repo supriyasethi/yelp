@@ -17,9 +17,10 @@ function loginuser(req,res) {
   } else {
   con.query("SELECT * FROM login WHERE (username = '"+ req.body.username + "' AND password = '"+ req.body.password+"')" ,(err,rows,fields) => {
     if (!err) {
-      if(rows != '') {
-          req.session.userId = rows[0].userId;
+      if(rows != '') {        
           res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
+          req.session.userId = rows[0].userId;
+          console.log(req.session.userId);
           req.session.user = req.body.username;          
           console.log('user', req.session.user);
           res.writeHead(200,{
@@ -56,8 +57,7 @@ function loginbiz(req,res) {
     if (!err) {
       if(rows != '') {
         res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});          
-          req.session.restaurantId = rows[0].restaurantId;
-          res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
+          req.session.restaurantId = rows[0].restaurantId;          
           req.session.user = req.body.username;
           console.log(req.session.restaurantId);
           res.writeHead(200,{

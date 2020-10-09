@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import {IconButton, Avatar} from '@material-ui/core';
+import React, { useState } from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {Typography, Button, Divider, TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel} from '@material-ui/core';
+import {Typography, Button, Divider, TextField} from '@material-ui/core';
 //import { connect, useDispatch } from "react-redux";
 import axios from 'axios';
 import ImageUploader from 'react-images-upload';

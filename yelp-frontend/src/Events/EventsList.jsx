@@ -9,6 +9,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import axios from "axios";
+import Cookies from 'js-cookie';
+import cookie from 'react-cookies';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -43,11 +45,32 @@ function EventsList() {
 			});
 		});
     }, []);
-    
-    function handleRegister() {       
-        history.push({
-			pathname: '/eventsregister',
-			state: {data: "home"}});			
+	
+	
+    function handleRegister(e, id) {  
+		console.log('events', state.events[id]);
+		console.log('events', state.events[id].items.restaurantId);
+		console.log('cookie',Cookies.get("cookie"));
+		//console.log(Cookies);
+		var postInfo =  {
+			eventId : state.events[id].items.eventId,
+			restaurantId : state.events[id].items.restaurantId,
+		}
+		if (cookie.load('cookie')) {
+			axios.post("http://localhost:3001/insert/eventregister", postInfo).then((response) => {
+			//update the state with the response data
+			console.log(response);			
+		});
+	}
+
+        	// history.push({ 
+			// 	pathname: '/eventsregister',
+			// 	state: {data: state.events[id]}}); 
+		// }
+		else {
+			history.push('/login');
+		}
+			
 	}
 
 	const classes = useStyles();
@@ -115,7 +138,7 @@ function EventsList() {
 												fontSize: "14px",
 												fontWeight: "bold",
 											}}
-											onClick={handleRegister}>
+											onClick={(event) => handleRegister(event, listitem.id)}>
 											Register
 										</Link>
 									</div>

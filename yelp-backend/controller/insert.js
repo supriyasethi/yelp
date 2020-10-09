@@ -23,6 +23,27 @@ function insertevent(req, res) {
         });
   }
 
+  function inserteventregister(req, res) {
+    console.log("Inside Insert Event Register Post Request");  
+  console.log("Req Body : ",req.body);    
+    var sql = 
+      mysql.format("INSERT INTO eventsregister (eventId, restaurantId, userId) \
+               VALUES("+req.body.eventId+"," +req.body.restaurantId+"," +req.session.userId+")");               
+      con.query(sql, function (err, result) {
+      if (err) {          
+        res.status(401).send(err);
+        console.log(err);
+        }
+      else {
+        console.log( result);              
+        res.writeHead(200,{
+          'Content-Type' : 'text/plain'
+      })
+        res.end("Event registered successfully!");
+          }        
+        });
+  }
+
 
 function insertmenu(req, res) {
     console.log("Inside Insert Menu Post Request");  
@@ -72,5 +93,6 @@ function insertmenu(req, res) {
 
 module.exports = {
     insertevent,
-    insertmenu
+    insertmenu,
+    inserteventregister
 }
