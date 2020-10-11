@@ -63,9 +63,20 @@ const LoginForm = ({title, sender}) => {
             if(response.status === 200) {                
                 console.log('login response', response);
                 if (sender === 'user') {
-                history.push("/homea"); }
-                else { history.push("/bizp"); }
+                    if (cookie.load('cookie')) {
+                        localStorage.setItem('userId',response.data[0].userId);
+                        history.push("/homea");                        
+                        //redirectVar = <Redirect to= "/home"/>
+                    }
+                 }
+                else { 
+                    console.log(response.data[0].restaurantId);
+                    if (cookie.load('cookie')) {
+                        localStorage.setItem('restaurantId',response.data[0].restaurantId);
+                        history.push("/bizp");                        
             }
+        }
+        }
         })
         .catch(error => { 
             console.log(error.response)
@@ -102,10 +113,7 @@ const LoginForm = ({title, sender}) => {
         }
     }
     
-    if (cookie.load('cookie')) {
-        history.push("/homea");
-        //redirectVar = <Redirect to= "/home"/>
-    }
+    
     const classes = useStyles();        
     
     return (

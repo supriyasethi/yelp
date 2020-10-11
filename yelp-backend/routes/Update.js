@@ -13,4 +13,6 @@ router.post('/userprofile', updateController.userprofile);
 //Route to handle Post update biz profile Request Call
 router.post('/bizprofile', updateController.bizprofile);  
 
+router.post('/order', updateController.updateorder); 
+
 module.exports = router;

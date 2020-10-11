@@ -1,12 +1,12 @@
 import React from 'react';
 import {Grid} from '@material-ui/core';
-import ProfileHeader from '../ProfileHeader.jsx';
-import ProfileInfo from './ProfileInfo.jsx';
-import LoginSignupTopBar from '../../../helpers/LoginSignupTopBar.jsx';
+import Reviewform from './Reviewform.jsx';
+import LoginSignupTopBar from '../../helpers/LoginSignupTopBar';
+//import { useLocation } from "react-router-dom";
 //import { connect } from 'react-redux';
 
- function ProfileUpdate(){
-           
+ function WriteReview(){     
+   
     return (    
         <Grid container direction="column" spacing={20}>
             <Grid item >
@@ -15,7 +15,7 @@ import LoginSignupTopBar from '../../../helpers/LoginSignupTopBar.jsx';
             <Grid item container>
                 <Grid xs={0} sm={3}/>
                 <Grid xs={12} sm={6}>
-                    <ProfileInfo />
+                    <Reviewform />
                 </Grid>
                 <Grid xs={0} sm={3}/>
             </Grid>            
@@ -30,5 +30,5 @@ import LoginSignupTopBar from '../../../helpers/LoginSignupTopBar.jsx';
     
 // }
 //export default connect(mapStateToProps)(Profile);
-export default ProfileUpdate;
+export default WriteReview;
 

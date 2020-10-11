@@ -8,7 +8,7 @@ import axios from 'axios';
 //import { connect, useDispatch } from "react-redux";
 
 
-const NavbarA = ({user}) => {  
+const NavbarA = ({user, id}) => {  
 
     let history = useHistory();      
     let curruser = '';
@@ -20,10 +20,14 @@ const NavbarA = ({user}) => {
        history.push("/");
     }
 
+    function handleWriteReviews() {
+        history.push("/bizlist");
+      }
+
     function handleDisplayEvents() {
         history.push({
 			pathname: '/eventsdisplay',
-			state: {data: "homea"}});
+			state: {data: id}});
 	}
     
     function handleProfileClick() {
@@ -52,9 +56,8 @@ const NavbarA = ({user}) => {
 								fontSize: "14px",
 								fontWeight: "bold",
                             }}
-							onClick={() => {
-								console.info("I'm a button.");
-							}}>
+							onClick={handleWriteReviews}							
+							>
 							Write a Review
 						</Link>
                         <Link

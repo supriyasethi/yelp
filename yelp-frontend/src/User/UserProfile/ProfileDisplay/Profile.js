@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Grid} from '@material-ui/core';
+import ProfileHeader from '../ProfileHeader.jsx';
 import UserInfo from './UserInfo.jsx';
 import UserDetails from './UserDetails.jsx';
 import { connect } from 'react-redux';
 import LoginSignupTopBar from '../../../helpers/LoginSignupTopBar.jsx';
-import axios from 'axios';
+import { useLocation } from "react-router-dom";
 
- function Profile(){  
-
-       
+ function Profile({data}){
+    const location = useLocation();
     return (    
         <Grid container direction="column" spacing={50}>
             <Grid item >
@@ -17,14 +17,14 @@ import axios from 'axios';
             <Grid item container>
                 <Grid xs={0} sm={2}/>
                 <Grid xs={12} sm={8}>
-                    <UserInfo />
+                    <UserInfo data={location.state.data} />
                 </Grid>
                 <Grid xs={0} sm={2}/>
             </Grid>
             <Grid item container>
                 <Grid xs={0} sm={2}/>
                 <Grid xs={12} sm={8}>
-                    <UserDetails />
+                    <UserDetails data={location.state.data}/>
                 </Grid>
                 <Grid xs={0} sm={2}/>
             </Grid>

@@ -1,13 +1,12 @@
 import React from 'react';
 import {Grid} from '@material-ui/core';
 import EventsList from './EventsList.jsx';
-import LoginSignupTopBar from '../helpers/LoginSignupTopBar';
-import { useLocation } from "react-router-dom";
+import LoginSignupTopBar from '../../helpers/LoginSignupTopBar';
+//import { useLocation } from "react-router-dom";
 //import { connect } from 'react-redux';
 
- function EventsDisplay({props}){
-     const location = useLocation();
-    console.log(location.state.data)    
+ function EventsDisplay(){
+      
     return (    
         <Grid container direction="column" spacing={20}>
             <Grid item >

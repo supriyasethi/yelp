@@ -31,35 +31,17 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
-const RestaurantLinks = () => {
+const Links = () => {
 	const classes = useStyles();
 	let history = useHistory();
-	function updateBusinessInfo() {
-		history.push("/updatebprofile");
-	}
+	
 
-	function updateMenu() {
-		history.push("/menu");			
-	}
-
-	function addEvents() {
-		history.push("/event");
-	}
-	function handleFetchEvents() {		
-		history.push("/events");
-			// pathname: "/events",
-			// state: {data: data }});
-	}
-
-	function handleCheckOrders() {
-		history.push('/updateorder')
-    }
+	
     function handleClickHome() {
-		history.push('/bizp')
-	}
-
-	function handleReviews() {
-		history.push('/vreviews')
+		history.push('/bizdisplay')
+    }
+    function handleClickReviews() {
+		history.push('/ureviews')
 	}
 
 	return (
@@ -76,24 +58,15 @@ const RestaurantLinks = () => {
                             onClick={handleClickHome}
 						/>
 					</ListItem>
-					<ListItem button>
-						<ListItemIcon>
-							<BusinessOutlinedIcon />
-						</ListItemIcon>
-						<ListItemText
-							classes={{ primary: classes.listItemText }}
-							primary='Business Information'
-							onClick={updateBusinessInfo}
-						/>
-					</ListItem>
+					
 					<ListItem button>
 						<ListItemIcon>
 							<StarOutlinedIcon />
 						</ListItemIcon>
 						<ListItemText
 							classes={{ primary: classes.listItemText }}
-							primary='Reviews'
-							onClick={handleReviews}
+                            primary='Reviews'
+                            onClick={handleClickReviews}
 						/>
 					</ListItem>
 					<ListItem button>
@@ -104,50 +77,11 @@ const RestaurantLinks = () => {
 							classes={{ primary: classes.listItemText }}
 							primary='Photos'
 						/>
-					</ListItem>
-					<ListItem button>
-						<ListItemIcon>
-							<FastfoodOutlinedIcon />
-						</ListItemIcon>
-						<ListItemText
-							classes={{ primary: classes.listItemText }}
-							primary='Update Menu'
-							onClick={updateMenu}
-						/>
-					</ListItem>
-					<ListItem button>
-						<ListItemIcon>
-							<EventIcon />
-						</ListItemIcon>
-						<ListItemText
-							classes={{ primary: classes.listItemText }}
-							primary='Add Events'
-							onClick={addEvents}
-						/>
-					</ListItem>
-					<ListItem button>
-						<ListItemIcon>
-							<ListAltOutlinedIcon />
-						</ListItemIcon>
-						<ListItemText
-							classes={{ primary: classes.listItemText }}
-							primary='Check & Update Orders'
-							onClick={handleCheckOrders}
-						/>
-					</ListItem>
-					<ListItem button>
-						<ListItemIcon>
-							<EventIcon />
-						</ListItemIcon>
-						<ListItemText
-							classes={{ primary: classes.listItemText }}
-							primary='Events'
-							onClick={handleFetchEvents}
-						/>
-					</ListItem>
+					</ListItem>								
+							
 				</List>
 			</div>			
 		</div>
 	);
 };
-export default RestaurantLinks;
+export default Links;

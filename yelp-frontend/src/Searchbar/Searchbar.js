@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import styles from "./Searchbar.module.css";
 import axios from "axios";
 import {
@@ -15,6 +15,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import { makeStyles } from "@material-ui/styles";
+import { useHistory } from "react-router-dom";
+import { useGoogleMaps } from "react-hook-google-maps";
+//import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,10 +29,22 @@ const useStyles = makeStyles((theme) => ({
 	list: {
 		marginTop: 300,
 	},
+	mapStyles: {
+		width: '100%',
+  		height: '100%'
+	}
 }));
 
 export function Searchbar() {
+	let history = useHistory();
+	const mapRef = useRef(null);
 	const classes = useStyles();
+	const { ref, map, google } = useGoogleMaps('AIzaSyB_V46hZHJWMGf_UQViAlhD90sUrhY9wLc',
+		{
+			center: { lat: 0, lng: 0 },
+			zoom: 3,
+		  },
+		);
 	let [state, setState] = React.useState({
 		find: "",
 		where: "",
@@ -93,7 +108,8 @@ export function Searchbar() {
 	}
 
 	function handleOrderRequest(e, id) {
-		console.log("reqeuest");
+		localStorage.setItem('restaurantId', id);
+		history.push('/bizdisplay');
 	}
 	return (
 		<div>
@@ -196,7 +212,7 @@ export function Searchbar() {
 													fontWeight: "bold",
 												}}
 												onClick={(event) =>
-													handleOrderRequest(event, listitem.id)
+													handleOrderRequest(event, listitem.items.restaurantId)
 												}>
 												Order Online
 											</Link>
@@ -209,6 +225,21 @@ export function Searchbar() {
 				</List>
 				<Divider />
 			</div>
+
+			<div>
+				<div ref={ref} style={{ width: 400, height: 300 }} />
+			</div>
 		</div>
 	);
 }
+
+// GeoDistanceFrom.propTypes = {
+// 	google: PropTypes.shape({}).isRequired,
+//   };
+
+// GeoDistanceFrom.defaultProps = {
+// };
+// export default GoogleApiWrapper({
+// 	apiKey: 'AIzaSyAy94PUn8Y_lBS8hk555rkc19tntZ5GX4w',
+// 	libraries: ['places']
+//   })(Searchbar);

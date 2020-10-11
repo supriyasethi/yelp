@@ -15,5 +15,9 @@ router.post('/eventregister', insertController.inserteventregister);
 //Route to handle Post insertMenu Request Call
 router.post('/menu', insertController.insertmenu); 
 
+router.post('/order', insertController.insertorder); 
+
+router.post('/reviews', insertController.insertreviews);
+
 
 module.exports = router;

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Grid} from '@material-ui/core';
-import RestaurantLinks from './RestaurantLinks';
-import RestaurantInfo from './RestaurantInfo';
+import Links from './Links';
+import Info from './Info';
 
 
-const ProfileBody = ({data}) => {
+const Body = () => {
     
     return (
         <Grid container
@@ -12,11 +12,11 @@ const ProfileBody = ({data}) => {
         spacing={40}>
             <Grid xs={0} sm={1} justify="center"/>
             <Grid item xs={2} justify="center">
-                <RestaurantLinks />
+                <Links />
             </Grid>
             <Grid item xs={8} 
              alignItems="flex-start" justify="flex-end">
-               <RestaurantInfo />
+               <Info/>
             </Grid>   
             <Grid xs={0} sm={1}/>  
                    
@@ -24,4 +24,4 @@ const ProfileBody = ({data}) => {
     ) 
 }
 
-export default ProfileBody;
+export default Body;

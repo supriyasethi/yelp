@@ -2,7 +2,7 @@ var con = require('../connection');
 const mysql = require('mysql');
 const { check, validationResult } = require("express-validator");
 
-function userprofile(res, req) {
+function userprofile(req, res) {
     console.log("Inside Update User Profile Post Request");  
   console.log("Req Body : ",req.body);    
   var sql = "UPDATE user SET \
@@ -42,7 +42,7 @@ function userprofile(res, req) {
   });
 }
 
-function bizprofile(res, req) {
+function bizprofile(req, res) {
     console.log("Inside Update Restaurant Profile Post Request");  
   console.log("Req Body : ",req.body);    
   var sql = "UPDATE restaurant SET \
@@ -79,7 +79,39 @@ function bizprofile(res, req) {
   });
 }
 
+function updateorder(req, res) {
+  console.log("Inside Update Order Profile Post Request");  
+console.log("Req Body : ",req.body);    
+var sql = "UPDATE orders SET \
+      delieveryStatus = '" + req.body.delieveryStatus + "', \
+      orderFilter = '" + req.body.orderFilter + "' WHERE orderId = "+ req.body.orderId + " AND restaurantId = " +   req.body.restaurantId ; 
+      
+con.query(sql,(err,rows,fields) => {  
+  if (!err) {
+    if(rows != '') {
+      res.cookie('cookie',"admin",{maxAge: 900000, httpOnly: false, path : '/'});
+        req.session.user = req.body.username;
+        currentUser = req.session.user;
+        console.log('user', req.session.user);
+        res.writeHead(200,{
+            'Content-Type' : 'text/plain'
+        })
+        res.end("Successful Insert!");
+    }
+    else {
+         res.writeHead(401,{
+            'Content-Type' : 'text/plain'
+        })
+        res.end("Database Error!");
+    }
+    console.log(rows); }
+  else
+    console.log(err);
+});
+}
+
 module.exports = {
     userprofile,
-    bizprofile
+    bizprofile,
+    updateorder
 }

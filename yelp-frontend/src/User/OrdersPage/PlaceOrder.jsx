@@ -42,9 +42,9 @@ const useStyles = makeStyles( (theme) => ({
     }
 }));
 
- function ProfileInfo () {
+ function PlaceOrder () {
 
-    const[picture, setpicture] = useState(null);
+    const[picture, setpicture] = useState("https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png");
     const [state, setState] = React.useState({        
         firstname: "",
         lastname: "",
@@ -56,17 +56,14 @@ const useStyles = makeStyles( (theme) => ({
         country: "",
         thingsilove: "",
         yelpingsince: "",
-        findmein: "",        
+        findmein: "",
       });    
 
     let history = useHistory();
     const classes = useStyles();
 
     function handleFileSelected(e) {
-        console.log(e.target.files[0]);
-        setpicture(e.target.files[0]);
-        
-        //setpicture(URL.createObjectURL(e.target.files[0]));
+        setpicture(URL.createObjectURL(e.target.files[0]));
     }
     
 
@@ -76,28 +73,21 @@ const useStyles = makeStyles( (theme) => ({
      setState({
        ...state,
        [e.target.name]: value       
-         });
-        
+         });        
     }
 
     function handleSaveChanges() {
-        const fd = new FormData();
-        fd.append(state);
-        fd.append('image', state.picture, state.picture.name);
-        // let profileInfo = {
-        //     state,
-        //     picture
-        // }
+
+        let profileInfo = {
+            state,
+            picture
+        }
 
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/update/userprofile', fd, {
-          headers: {
-            'Content-Type': 'multipart/form-data' }
-          })
+         axios.post('http://localhost:3001/update/userprofile', profileInfo)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {
-               
                 history.push("/userp");               
          }
      })
@@ -132,7 +122,7 @@ const useStyles = makeStyles( (theme) => ({
                     fontSize : "13px",
                     justifyContent: "center"
                    }}>Your Profile Photo                       
-            <input type="file" onChange={(e) => { handleFileSelected(e)}} /></Typography> 
+            <input type="file" onChange={handleFileSelected} /></Typography> 
             <img src={picture} style={{
               margin: "10px",
               width: "100px",
@@ -305,4 +295,4 @@ const useStyles = makeStyles( (theme) => ({
 //   }
 
   //export default connect(mapStateToProps, null)(UserInfo);
-  export default ProfileInfo;
+  export default PlaceOrder;

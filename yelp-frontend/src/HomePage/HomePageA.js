@@ -3,8 +3,10 @@ import NavbarA from './Navbar/NavbarA';
 import { Searchbar } from '../Searchbar/Searchbar';
 import logo from '../assets/YelpLogo.jpg'
 import styles from './HomePage.module.css';
+import { useLocation } from "react-router-dom";
 
-export default function HomePage(){
+export default function HomePageA(){
+    const location = useLocation();
     return (    
         <div className={styles.img} >
         <div className={styles.homepage}>

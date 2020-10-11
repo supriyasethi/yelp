@@ -5,7 +5,7 @@ import { Typography, Button, Divider } from "@material-ui/core";
 //import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import logo from "../../../assets/homepage1.jpg";
+import logo from "../../assets/homepage1.jpg";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 //import CardActions from '@material-ui/core/CardActions';
@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function RestaurantInfo() {
+function Info() {
 	let history = useHistory();
 	let [name, setname] = useState("");
 	let [address, setaddress] = useState("");
@@ -51,11 +51,11 @@ function RestaurantInfo() {
 	let [picutre, setpicture] = useState(null);
 
 	useEffect(() => {
-		var res = localStorage.getItem('restaurantId');
+        const data = localStorage.getItem('restaurantId');
 		axios.defaults.withCredentials = true;
 		axios.get("http://localhost:3001/get/bizp",
 		{params : {
-			restaurantId: res
+			restaurantId: data
 		  }}
 		).then((response) => {
 			//update the state with the response data
@@ -115,19 +115,7 @@ function RestaurantInfo() {
 			</div>
 			<div>
 				<Divider orientation='vertical' />
-			</div>
-			<div className={classes.update}>
-				<Button
-					onClick={handleUpdateProfile}
-					color='secondary'
-					style={{
-						color: "#333333",
-						"font-size": "12px",
-						"font-weight": "bold",
-					}}>
-					Edit Business Information
-				</Button>
-			</div>
+			</div>			
 		</div>
 	);
 }
@@ -140,4 +128,4 @@ function RestaurantInfo() {
 //   }
 
 //export default connect(mapStateToProps, null)(UserInfo);
-export default RestaurantInfo;
+export default Info;

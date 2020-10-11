@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Typography, Divider, Avatar, Link } from "@material-ui/core";
 //import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import logo from "../assets/homepage1.jpg";
+import logo from "../../assets/homepage1.jpg";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -29,16 +29,30 @@ function EventsList() {
 	});
 
 	var newEvent = [];
+	var prevevent = "";
+	var res = "";
 
 	useEffect(() => {
-		axios.get("http://localhost:3001/get/event").then((response) => {
-			//update the state with the response data
+		
+		res = localStorage.getItem('restaurantId');
+        axios.defaults.withCredentials = true;
+		axios.get("http://localhost:3001/get/events",{
+            params: {
+                restaurantId: res }
+            })
+        .then((response) => {
+            //update the state with the response data
+            console.log(response);
 			for (var i = 0; i < response.data.length; i++) {
-				var temp = response.data[i];
-				newEvent.push({
-					id: i,
-					items: temp,
-				});
+				if(prevevent !== response.data[i].name) {
+					var temp = response.data[i];
+					newEvent.push({
+						id: i,
+						items: temp,
+						username: (response.data[i].first_name + " " +response.data[i].last_name)
+					});
+					prevevent = response.data[i].name;					
+				}				
 			}
 			setState({
 				events: newEvent,
@@ -47,29 +61,29 @@ function EventsList() {
     }, []);
 	
 	
-    function handleRegister(e, id) {  
-		console.log('events', state.events[id]);
-		console.log('events', state.events[id].items.restaurantId);
-		console.log('cookie',Cookies.get("cookie"));
-		//console.log(Cookies);
-		var postInfo =  {
-			eventId : state.events[id].items.eventId,
-			restaurantId : state.events[id].items.restaurantId,
-		}
-		if (cookie.load('cookie')) {
-			axios.post("http://localhost:3001/insert/eventregister", postInfo).then((response) => {
-			//update the state with the response data
-			console.log(response);			
-		});
-	}
+    function handleUserProfile(e, id) {  
+	// 	console.log('events', state.events[id]);
+	 	console.log('events', state.events[id].items.userId);
+	// 	console.log('cookie',Cookies.get("cookie"));
+	// 	//console.log(Cookies);
+	// 	var postInfo =  {
+	// 		eventId : state.events[id].items.eventId,
+	// 		restaurantId : state.events[id].items.restaurantId,
+	// 	}
+	// 	if (cookie.load('cookie')) {
+	// 		axios.post("http://localhost:3001/insert/eventregister", postInfo).then((response) => {
+	// 		//update the state with the response data
+	// 		console.log(response);			
+	// 	});
+	// }
 
-        	// history.push({ 
-			// 	pathname: '/eventsregister',
-			// 	state: {data: state.events[id]}}); 
-		// }
-		else {
-			history.push('/login');
-		}
+    //     	// history.push({ 
+	// 		// 	pathname: '/eventsregister',
+	// 		// 	state: {data: state.events[id]}}); 
+	// 	// }
+	// 	else {
+	// 		history.push('/login');
+	// 	}
 			
 	}
 
@@ -85,7 +99,7 @@ function EventsList() {
 						fontSize: "20px",
 						justifyContent: "center",
 					}}>
-					Upcoming Events
+					Events List
 				</Typography>
 			</div>
 			<div>
@@ -131,6 +145,14 @@ function EventsList() {
 										{listitem.items.location}
 									</div>
 									<div>
+										<Typography
+											component='span'
+											variant='body2'
+											className={classes.inline}
+											color='textPrimary'>
+											User Registered:
+										</Typography>							
+									
 										<Link
 											component='button'
 											variant='body2'
@@ -138,8 +160,8 @@ function EventsList() {
 												fontSize: "14px",
 												fontWeight: "bold",
 											}}
-											onClick={(event) => handleRegister(event, listitem.id)}>
-											Register
+											onClick={(event) => handleUserProfile(event, listitem.id)}>
+											{listitem.username}
 										</Link>
 									</div>
 								</React.Fragment>

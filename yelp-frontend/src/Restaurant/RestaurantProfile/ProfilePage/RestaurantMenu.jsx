@@ -31,7 +31,13 @@ function RestaurantMenu() {
 	var newMenu = [];	
 
 	useEffect(() => {
-		axios.get("http://localhost:3001/get/menu").then((response) => {
+		var res = localStorage.getItem('restaurantId');
+		axios.defaults.withCredentials = true;
+		axios.get("http://localhost:3001/get/menu", {
+			params : {
+				restaurantId : res
+			}
+		}).then((response) => {
 			//update the state with the response data			
 			for (var i = 0; i < response.data.length; i++) {
 				var temp = response.data[i];	

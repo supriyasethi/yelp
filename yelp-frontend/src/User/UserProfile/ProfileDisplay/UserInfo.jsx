@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/styles';
 import {Typography, Button, Divider} from '@material-ui/core';
 //import { connect, useDispatch } from "react-redux";
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles( () => ({
     container : {
@@ -37,21 +37,19 @@ const useStyles = makeStyles( () => ({
 }));
 
  function UserInfo ({data}) {
-
+    const location = useLocation();
   let history = useHistory();
     let [username, setUsername] = useState('');
-    let [location, setlocation] = useState('');
+    let [loc, setlocation] = useState('');
     let [picture, setpicture] = useState('');
 
 
-    useEffect(() => {     
-
-      const userId = localStorage.getItem('userId');
-      console.log('inside user info');
-      console.log(userId);
+    useEffect(() => {
+        var user = location.state.data;
+      console.log(user);
     axios.get('http://localhost:3001/get/userp',{
       params: {
-        userId : userId
+        userId : user
       }
     })
       .then((response) => {
@@ -60,15 +58,15 @@ const useStyles = makeStyles( () => ({
         setUsername(response.data[0].first_name + ' ' + response.data[0].last_name);
         setlocation(response.data[0].city + ', ' + response.data[0].state); 
         // if(response.data[0].profile_img != null)     {
-          //setpicture();
+        //   setpicture();
         // } else {
         //   setpicture(<img src={response.data[0].profile_img} style={{
         //                   margin: "10px",
         //                   width: "100px",
         //                   height: "100px",
         //                 }} />);
-        //}
-         });
+        // }
+          });
     },[]);
     
     const classes = useStyles();
@@ -99,7 +97,7 @@ const useStyles = makeStyles( () => ({
                  <Typography style={{
                  color:"#333333", 
                     fontSize: "15px"
-                    }}>{location}</Typography>
+                    }}>{loc}</Typography>
             </div>
             <div>
                 <Divider orientation='vertical' />
