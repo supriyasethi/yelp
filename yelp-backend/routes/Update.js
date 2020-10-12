@@ -4,6 +4,8 @@ const router = express.Router();
 //require express validation to validate the fields
 const { check, validationResult } = require("express-validator");
 const updateController = require("../controller/update");
+
+
 //const auth = require('../middleware/auth');
 
 //router.use(auth);

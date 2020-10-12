@@ -1,10 +1,13 @@
 var con = require('../connection');
 const mysql = require('mysql');
+var express = require('express');
+var app = express();
 const { check, validationResult } = require("express-validator");
-
+var fileupload = require('express-fileupload');
 function userprofile(req, res) {
-    console.log("Inside Update User Profile Post Request");  
+  console.log("Inside Update User Profile Post Request");  
   console.log("Req Body : ",req.body);    
+
   var sql = "UPDATE user SET \
         first_name = '" + req.body.firstname + "', \
         last_name = '" + req.body.lastname + "', \

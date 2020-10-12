@@ -8,7 +8,10 @@ var cookieParser = require('cookie-parser');
 var cors = require('cors');
 var redis = require('redis');
 var connectRedis = require('connect-redis');
-const auth = require('./middleware/auth');
+var auth = require('./middleware/auth');
+var fileupload = require('express-fileupload');
+
+app.use(fileupload());
 
 //if you run behind a proxy (eg nginx)
 //app.set("trust proxy", 1);
@@ -47,6 +50,8 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('connect').bodyParser());
 
+
+
 //Allow Access Control
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -71,6 +76,21 @@ app.use("/update", Update);
 app.use("/insert", Insert);
 app.use("/get", Fetch);  
 
+app.post('/upload', (req, res) => {
+  console.log('request', req.files);
+  if(req.files === null) {
+    return res.status(400).json({msg: 'No file uploaded'});
+  }
+  
+  const file = req.files.image;
+  file.mv(`${__dirname}/uploads/${file.name})`, err => {
+    if(err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+    res.json({fileName: file.name, filePath: '../../yelp-backends/uploads/${file.name}'})
+  })
+})
 
   //start your server on port 3001
 app.listen(3001);
