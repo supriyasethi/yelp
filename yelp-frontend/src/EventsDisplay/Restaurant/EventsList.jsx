@@ -51,9 +51,10 @@ function EventsList() {
 						items: temp,
 						username: (response.data[i].first_name + " " +response.data[i].last_name)
 					});
-					prevevent = response.data[i].name;					
+					prevevent = response.data[i].name;										
 				}				
 			}
+			console.log('newEvent', newEvent);
 			setState({
 				events: newEvent,
 			});

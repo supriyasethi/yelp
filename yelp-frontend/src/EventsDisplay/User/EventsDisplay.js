@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 //import { connect } from 'react-redux';
 
  function EventsDisplay({props}){
-     const location = useLocation();
-    console.log(location.state.data)    
+    // const location = useLocation();
+    
     return (    
         <Grid container direction="column" spacing={20}>
             <Grid item >
@@ -16,7 +16,7 @@ import { useLocation } from "react-router-dom";
             <Grid item container>
                 <Grid xs={0} sm={3}/>
                 <Grid xs={12} sm={6}>
-                    <EventsList data={location.state.data}/>
+                    <EventsList />
                 </Grid>
                 <Grid xs={0} sm={3}/>
             </Grid>            

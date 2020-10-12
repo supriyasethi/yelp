@@ -59,11 +59,13 @@ function RestaurantInfo() {
 		  }}
 		).then((response) => {
 			//update the state with the response data
-			console.log(response);
+			console.log('response', response.data[0]);
 			setname(response.data[0].name);
 			setaddress(response.data[0].address + "," + response.data[0].city);
 			settiming(response.data[0].timing);
 			setdescription(response.data[0].description);
+			console.log('address', address);
+			console.log('timing', timing);
 			// if(response.data[0].profile_img != null)     {
 			//   setpicture(<Avatar
 			//     variant="square"
@@ -87,7 +89,7 @@ function RestaurantInfo() {
 	const classes = useStyles();
 
 	function handleUpdateProfile() {
-		history.push("/updateuprofile");
+		history.push("/updatebprofile");
 	}
 
 	return (

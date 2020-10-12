@@ -12,7 +12,10 @@ export default function HomePage(){
     let history = useHistory();  
     
     function handleBusiness() {
-        history.push("/loginbiz");
+        if (cookie.load('cookie')) {
+            history.push('/bizp');
+        }else {        
+        history.push("/loginbiz"); }
     }
     if (cookie.load('cookie')) {
         history.push('/homea');

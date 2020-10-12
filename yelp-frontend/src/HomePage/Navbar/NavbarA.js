@@ -31,16 +31,9 @@ const NavbarA = ({user, id}) => {
 	}
     
     function handleProfileClick() {
-
-      //dispatch(fetchProfile(user))
+      
       console.log('inside handleprofile click');
-      // axios.get('http://localhost:3001/userp')
-      //   .then((response) => {
-      //  //update the state with the response data
-      //   curruser = response.data.username
-      //   setData({curruser});
-      //   console.log(data);        
-      // });               
+      
        history.push("/userp");
     }   
        return(

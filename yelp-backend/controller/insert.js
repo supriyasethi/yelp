@@ -20,7 +20,7 @@ function insertevent(req, res) {
 			"','" +
 			req.body.hashtag +
 			"'," +
-			req.session.restaurantId +
+			req.body.restaurantId +
 			")"
 	);
 	con.query(sql, function (err, result) {
@@ -68,69 +68,51 @@ function inserteventregister(req, res) {
 function insertmenu(req, res) {
 	console.log("Inside Insert Menu Post Request");
 	console.log("Req Body : ", req.body);
-	var sql =
-		"SELECT restaurantId FROM restaurant WHERE email_id = '" +
-		req.session.user +
-		"'";
-	console.log(sql);
-	con.query(sql, (err, rows, fields) => {
-		if (err) {
-			console.log("Update Error");
-			res.writeHead(401, {
-				"Content-Type": "text/plain",
-			});
-			res.end("Database Error in Select!");
-		} else {
-			console.log(rows[0].restaurantId);
-			if (rows != "") {
-				sql =
-					"INSERT INTO yelplab1.menu \
+	sql =
+		"INSERT INTO yelplab1.menu \
                          (dishName, ingredients, price, description, category, restaurantId) VALUES( \
                         '" +
-					req.body.dishname +
-					"','" +
-					req.body.ingredients +
-					"'," +
-					req.body.price +
-					",\
+		req.body.dishname +
+		"','" +
+		req.body.ingredients +
+		"'," +
+		req.body.price +
+		",\
                         '" +
-					req.body.description +
-					"','" +
-					req.body.category +
-					"'," +
-					rows[0].restaurantId +
-					")";
-				con.query(sql, (err, rows, fields) => {
-					if (!err) {
-						if (rows != "") {
-							console.log("Update done");
-							res.cookie("cookie", "admin", {
-								maxAge: 900000,
-								httpOnly: false,
-								path: "/",
-							});
-							res.writeHead(200, {
-								"Content-Type": "text/plain",
-							});
-							res.end("Successful Update!");
-						} else {
-							console.log("Update Error");
-							res.writeHead(401, {
-								"Content-Type": "text/plain",
-							});
-							res.end("Database Error in Update!");
-						}
-						console.log(rows);
-					} else console.log(err);
+		req.body.description +
+		"','" +
+		req.body.category +
+		"'," +
+		req.body.restaurantId +
+		")";
+	con.query(sql, (err, rows, fields) => {
+		if (!err) {
+			if (rows != "") {
+				console.log("Update done");
+				res.cookie("cookie", "admin", {
+					maxAge: 900000,
+					httpOnly: false,
+					path: "/",
 				});
+				res.writeHead(200, {
+					"Content-Type": "text/plain",
+				});
+				res.end("Successful Update!");
+			} else {
+				console.log("Update Error");
+				res.writeHead(401, {
+					"Content-Type": "text/plain",
+				});
+				res.end("Database Error in Update!");
 			}
-		}
+			console.log(rows);
+		} else console.log(err);
 	});
 }
 
 function insertreviews(req, res) {
-  console.log("Inside Insert Reviews Post Request");
-  console.log(req.body);
+	console.log("Inside Insert Reviews Post Request");
+	console.log(req.body);
 	sql =
 		"INSERT INTO reviews \
       (restaurantId, reviews, rating, userId) VALUES( \
@@ -160,18 +142,19 @@ function insertreviews(req, res) {
 			console.log(err);
 			res.writeHead(401, {
 				"Content-Type": "text/plain",
-      });
-      if(error.response.sqlState === '23000') {
-        res.end("Reviews already given by the user");
-    } else {
-			res.end("Database Error in Update!");}
+			});
+			if (error.response.sqlState === "23000") {
+				res.end("Reviews already given by the user");
+			} else {
+				res.end("Database Error in Update!");
+			}
 		}
 	});
 }
 
 function insertorder(req, res) {
-  console.log("Inside Insert Order Post Request");
-  console.log(req.body);
+	console.log("Inside Insert Order Post Request");
+	console.log(req.body);
 	sql =
 		"INSERT INTO orders \
       (orderItem, delieveryOption, orderFilter, restaurantId, userId) VALUES( \
@@ -183,9 +166,11 @@ function insertorder(req, res) {
 		req.body.orderFilter +
 		"',\
       " +
-		req.body.restaurantId + "," + req.body.userId +
-    ")";
-    console.log('sql',sql);
+		req.body.restaurantId +
+		"," +
+		req.body.userId +
+		")";
+	console.log("sql", sql);
 	con.query(sql, (err, rows, fields) => {
 		if (!err) {
 			console.log("Update done");
@@ -202,7 +187,7 @@ function insertorder(req, res) {
 			console.log(err);
 			res.writeHead(401, {
 				"Content-Type": "text/plain",
-      });      
+			});
 			res.end("Database Error in Update!");
 		}
 	});
@@ -211,7 +196,7 @@ function insertorder(req, res) {
 module.exports = {
 	insertevent,
 	insertmenu,
-  inserteventregister,
-  insertreviews,
-  insertorder
+	inserteventregister,
+	insertreviews,
+	insertorder,
 };

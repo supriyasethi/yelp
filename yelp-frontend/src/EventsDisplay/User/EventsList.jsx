@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Typography, Divider, Avatar, Link } from "@material-ui/core";
+import { Typography, Divider, Avatar, Link, Button, TextField } from "@material-ui/core";
 //import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/homepage1.jpg";
@@ -19,11 +19,16 @@ const useStyles = makeStyles((theme) => ({
 	inline: {
 		display: "inline",
 	},
+	input: {
+		width: "200px",
+		height: "5px"
+	}
 }));
 
 function EventsList({data}) {
 	let history = useHistory();	
 	let [eventmsg, seteventmsg] = useState();
+	let [searchkey, setsearchkey] = useState();
 	let [state, setState] = React.useState({
 		events: [],
 	});
@@ -47,11 +52,33 @@ function EventsList({data}) {
 		});
     }, []);
 	
-	
+	function handleSearchChange(e) {
+		setsearchkey(e.target.value);
+	}
+	function handleSearchEvent() {
+		axios.defaults.withCredentials = true;
+		axios.get("http://localhost:3001/get/eventkey", {
+			params: {
+				key: searchkey
+			}
+		}).then((response) => {
+			//update the state with the response data
+			for (var i = 0; i < response.data.length; i++) {
+				var temp = response.data[i];
+				newEvent.push({
+					id: i,
+					items: temp,
+				});
+			}
+			setState({
+				events: newEvent,
+			});
+		});
+	}
     function handleRegister(e, id) {  
 		console.log('event Id', state.events[id].items.eventId);
 		console.log('res Id', state.events[id].items.restaurantId);
-		console.log('user Id', data);
+		//console.log('user Id', data);
 		console.log('cookie',Cookies.get("cookie"));
 		//console.log(Cookies);
 		let user = localStorage.getItem('userId');
@@ -93,23 +120,34 @@ function EventsList({data}) {
 			{eventmsg}
 			</div>
 			<div>
-				<Typography
-					style={{
-						color: "#d32323",
-						fontWeight: "bold",
-						fontSize: "20px",
-						justifyContent: "center",
-					}}>
-					Upcoming Events
-				</Typography>
-			</div>
-			<div>
-				<Divider />
-			</div>
-
+			<TextField
+						className={`input is-medium ${classes.input}`}
+						id='outlined-basic'
+						placeholder='Events'
+						variant='outlined'
+						size='medium'
+						type='text'
+						name='searchkey'
+						value={state.searchkey}
+						style={{ 
+							height: "35px", 
+							}}
+						onChange={handleSearchChange}
+					/>
+			<Button variant="contained" color="secondary" style={{ 
+                height: "55px", 
+                width: "100px", 
+                fontSize : '12px',
+                fontWeight : "bold",
+                background: "#d32323"}} onClick={handleSearchEvent} >
+                Search
+            </Button>
+			</div>	
+			
 			<List>
 				{state.events.map((listitem) => (
 					<ListItem alignItems='flex-start' key={listitem.id}>
+						<Divider />
 						<ListItemAvatar>
 							<Avatar alt='Remy Sharp' src={logo} />
 						</ListItemAvatar>
@@ -163,7 +201,7 @@ function EventsList({data}) {
 					</ListItem>
 				))}
 			</List>
-			<Divider />
+			
 		</div>
 	);
 }

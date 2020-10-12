@@ -53,6 +53,7 @@ function Menu({data}) {
 	});
     const newChecked = [...checked];
     var newMenu = [];	   
+    var newid = [];
 
 	useEffect(() => {
         const data = localStorage.getItem('restaurantId');
@@ -81,19 +82,19 @@ function Menu({data}) {
     let [msg, setmsg] = useState('');
     const rId = localStorage.getItem('restaurantId');
     const uId = localStorage.getItem('userId');
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
+    // const handleToggle = (value) => () => {
+    //     const currentIndex = checked.indexOf(value);
         
     
-        if (currentIndex === -1) {
-          newChecked.push(value);
-        } else {
-          newChecked.splice(currentIndex, 1);
-        }
+    //     if (currentIndex === -1) {
+    //       newChecked.push(value);
+    //     } else {
+    //       newChecked.splice(currentIndex, 1);
+    //     }
     
-        setChecked(newChecked);
-        console.log(newChecked);
-      };
+    //     setChecked(newChecked);
+    //     console.log(newChecked);
+    //   };
 
     function handleCancel() {
         history.push('/homea')
@@ -104,14 +105,21 @@ function Menu({data}) {
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
+    const handleChangeclick = (id) => {
+      newid.push(id);
+      //setState({ ...state, [event.target.name]: event.target.checked });
+  };
    
     function handleOrder() {
             var orderItem ='';
             var id = '';  
             var delieveryoption = '';
-
-        for(var i=0; i< newChecked.length; i++) {
-            id = newChecked[i];            
+        console.log('state', state.menu[0].items.dishName);
+        //for(var i=0; i< newChecked.length; i++) {
+          for(var i=0; i< newid.length; i++) {
+          console.log(newChecked.length);
+            id = newid[i];                        
+            console.log('id',id);
             orderItem = orderItem + state.menu[id].items.dishName + ',';
         }
         console.log('orderItem',orderItem);
@@ -181,7 +189,7 @@ function Menu({data}) {
               <Checkbox
                 color="#d32323"
                 edge="end"
-                onChange={handleToggle(listitem.id)}                                
+                onChange={handleChangeclick(listitem.id)}                                
               />
             </ListItemSecondaryAction>
           </ListItem>

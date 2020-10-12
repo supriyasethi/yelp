@@ -60,10 +60,7 @@ const useStyles = makeStyles( () => ({
         console.log(response);
         setUsername(response.data[0].first_name + ' ' + response.data[0].last_name);
         setlocation(response.data[0].city + ', ' + response.data[0].state); 
-        localStorage.setItem('location', response.data[0].city + ', ' + response.data[0].state);
-        localStorage.setItem('username', response.data[0].first_name + ' ' + response.data[0].last_name);
-        localStorage.setItem('yelpingsince', response.data[0].yelping_since);
-        localStorage.setItem('thingsilove', response.data[0].things_i_love);
+        
         // if(response.data[0].profile_img != null)     {
           //setpicture();
         // } else {

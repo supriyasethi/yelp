@@ -31,6 +31,24 @@ function fetchhome(req,res) {
         }
 });
 }
+
+function fetcheventkey(req,res) {
+  console.log("Inside Event Search Get request");   
+  let key = req.query.key;
+  var sql = 
+    mysql.format("SELECT * FROM events WHERE \
+          name LIKE '%" + key + "%'");            
+    con.query(sql, function (err, result) {
+      if (err) { 
+        console.log(err);         
+        res.status(401).send(err);      
+      } else
+      {    
+        console.log(result);                          
+        res.status(200).send(result);
+      }
+});
+}
     
 function fetchmenu(req, res) {
   console.log("Inside Menu Get request"); 
@@ -181,6 +199,26 @@ var sql =
 });
 }
 
+function fetchorder(req, res) {
+  console.log("Inside fetch view order Profile");  
+  console.log(req.body);
+  let restaurantId = req.query.restaurantId;   
+var sql = 
+  mysql.format("SELECT * FROM orders A INNER JOIN restaurant B \
+        ON A.restaurantId = B.restaurantId \
+        WHERE A.userId ="+ req.query.userId);
+  con.query(sql, function (err, result) {
+    if (err) { 
+      console.log(err);         
+      res.status(401).send(err);      
+    } else
+    {    
+      console.log(result);          
+      res.status(200).send(result);
+    }
+});
+}
+
 function fetchbizlist(req, res) {
   console.log("Inside fetch orders Profile");  
   console.log(req.body);
@@ -229,5 +267,7 @@ module.exports = {
     fetchevents,
     fetchorders,
     fetchbizlist,
-    fetchreviews
+    fetchreviews,
+    fetcheventkey,
+    fetchorder
 }

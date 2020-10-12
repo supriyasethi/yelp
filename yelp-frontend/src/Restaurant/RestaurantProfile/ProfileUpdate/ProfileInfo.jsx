@@ -51,7 +51,8 @@ const useStyles = makeStyles( (theme) => ({
         address: "" ,
         phonenumber: "",
         timing: "",
-        website : "",             
+        website : "",   
+        restaurantId: null          
       });    
 
     let history = useHistory();
@@ -63,13 +64,15 @@ const useStyles = makeStyles( (theme) => ({
     
 
     function handleChange(e) {
+      const res = localStorage.getItem('restaurantId');
         console.log("handlechange state", state);        
         const value = e.target.value;
      setState({
        ...state,
-       [e.target.name]: value,           
+       [e.target.name]: value,  
+       restaurantId : res           
          });
-        
+               
     }
 
     function handleSaveChanges() {
@@ -79,7 +82,7 @@ const useStyles = makeStyles( (theme) => ({
           picture
         }
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/update/bizp', profileInfo)
+         axios.post('http://localhost:3001/update/bizprofile', state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {

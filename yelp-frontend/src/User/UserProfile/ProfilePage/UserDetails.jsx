@@ -11,6 +11,8 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import { Typography } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,60 +40,100 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: '0',
     flexBasis: 'calc(25% - 10px)', /* separate properties for IE11 upport */
     margin: '5px',   
-  }
+  },
+  listItemText: {
+		fontSize: "14px",
+		fontWeight: "bold",
+    },
 }));
 
 export default function InsetDividers() {
   const classes = useStyles();
-  
+  let history = useHistory();
   let [username, setUsername] = useState('');
   let [location, setlocation] = useState('');
   let [yelpingsince, setyelpingsince] = useState('');
   let [thingsilove, setthingsilove] = useState('');
 
+  function handleClickProfile() {
+		history.push('/userp')
+  }
+  
+  function handleClickReviews() {
+		history.push('/bizlist')
+  }
+  
+  function handleClickEvents() {
+		history.push('/eventsdisplay')
+  }
+  
+  function handleClickOrders() {
+		history.push('/vieworder')
+	}
 
   useEffect(() => {
-    // axios.get('http://localhost:3001/get/userp')
-    //   .then((response) => {
-         //update the state with the response data
-        //console.log(response);
-        setUsername(localStorage.getItem('username'));
-        setlocation(localStorage.getItem('location'));  
-        setyelpingsince(localStorage.getItem('yelpingsince'));
-        setthingsilove(localStorage.getItem('thingsilove'));
-          //});
-    },[]);
+    const userId = localStorage.getItem('userId');
+    axios.get('http://localhost:3001/get/userp',{
+      params: {
+        userId : userId }
+      })
+      .then((response) => {
+     //    update the state with the response data
+        console.log(response);
+        setUsername(response.data[0].first_name + ' ' + response.data[0].last_name);
+        setlocation(response.data[0].city + ', ' + response.data[0].state);  
+        setyelpingsince(response.data[0].yelping_since);
+        setthingsilove(response.data[0].things_i_love);
+        
+    })
+  },[]);
   
   return (
     <div className={classes.root}>
       <div className={classes.itemlist}>
       <List>
       <Divider variant="inset" component="li" />
-      <ListItem>
+      <ListItem button>
         <ListItemAvatar>
           <Avatar>
             <ImageIcon />
           </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Profile Overview" />
+        </ListItemAvatar>        
+        <ListItemText primary="Profile Overview"
+        classes={{ primary: classes.listItemText }}        
+        onClick={handleClickProfile} />
       </ListItem>
       <Divider variant="inset" component="li" />
-      <ListItem>
+      <ListItem button>
         <ListItemAvatar>
           <Avatar>
             <WorkIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Friends" />
+        <ListItemText primary="Events" 
+        classes={{ primary: classes.listItemText }}        
+        onClick={handleClickEvents} />
       </ListItem>
       <Divider variant="inset" component="li" />
-      <ListItem>
+      <ListItem button>
         <ListItemAvatar>
           <Avatar>
             <BeachAccessIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Reviews"/>
+        <ListItemText primary="Reviews"
+        classes={{ primary: classes.listItemText }}        
+        onClick={handleClickReviews} />
+      </ListItem>
+      <ListItem button>
+        <ListItemAvatar>
+          <Avatar>
+            <BeachAccessIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="Orders"
+        classes={{ primary: classes.listItemText }}        
+        onClick={handleClickOrders} />
       </ListItem>
     </List>
     </div>

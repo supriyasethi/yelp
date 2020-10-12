@@ -56,7 +56,8 @@ const useStyles = makeStyles( (theme) => ({
         country: "",
         thingsilove: "",
         yelpingsince: "",
-        findmein: "",        
+        findmein: "", 
+        userId: null       
       });    
 
     let history = useHistory();
@@ -68,14 +69,16 @@ const useStyles = makeStyles( (theme) => ({
         
         //setpicture(URL.createObjectURL(e.target.files[0]));
     }
-    
+    var user = localStorage.getItem('userId');
 
     function handleChange(e) {
+      
         console.log("handlechange state", state);        
         const value = e.target.value;
      setState({
        ...state,
-       [e.target.name]: value       
+       [e.target.name]: value,
+       userId: user       
          });
         
     }
@@ -88,12 +91,9 @@ const useStyles = makeStyles( (theme) => ({
             state,
             picture
         }
-
+        console.log(state);
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/update/userprofile', state, {
-          headers: {
-            'Content-Type': 'multipart/form-data' }
-          })
+         axios.post('http://localhost:3001/update/userprofile', state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {

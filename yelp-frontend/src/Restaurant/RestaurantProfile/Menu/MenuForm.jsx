@@ -47,10 +47,10 @@ const useStyles = makeStyles( (theme) => ({
     const [state, setState] = React.useState({        
         dishname: "",
         ingredients: "",
-        price: null, 
-        gender: "" ,
+        price: null,         
         description: "",
-        category: ""        
+        category: "",
+        restaurantId: null     
       });    
 
     let history = useHistory();
@@ -62,11 +62,13 @@ const useStyles = makeStyles( (theme) => ({
     
 
     function handleChange(e) {
+      const res = localStorage.getItem('restaurantId'); 
         console.log("handlechange state", state);        
         const value = e.target.value;
      setState({
        ...state,
-       [e.target.name]: value       
+       [e.target.name]: value,
+       restaurantId: res    
          });
         
     }

@@ -11,8 +11,11 @@ import cookie from 'react-cookies';
 export default function HomePageA(){
     const location = useLocation();
     let history = useHistory(); 
-  function handleBusiness() {
-        history.push("/loginbiz");
+    function handleBusiness() {
+        if (cookie.load('cookie')) {
+            history.push('/bizp');
+        }else {        
+        history.push("/loginbiz"); }
     }
     if (!cookie.load('cookie')) {
         history.push('/home');

@@ -50,7 +50,8 @@ const useStyles = makeStyles( (theme) => ({
         time: "", 
         date: "" ,
         location: "",
-        hashtag: ""        
+        hashtag: "" ,
+        restauranId: null       
       });    
 
     let history = useHistory();
@@ -62,17 +63,19 @@ const useStyles = makeStyles( (theme) => ({
     
 
     function handleChange(e) {
+      const res = localStorage.getItem('restaurantId');
         console.log("handlechange state", state);        
         const value = e.target.value;
      setState({
        ...state,
-       [e.target.name]: value       
+       [e.target.name]: value,
+       restaurantId: res    
          });
         
     }
-
+    
     function handleSaveChanges() {
-
+        
         console.log('state',state);
 
         axios.defaults.withCredentials = true;

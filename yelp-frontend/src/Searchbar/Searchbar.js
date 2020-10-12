@@ -16,6 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import { makeStyles } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
+import cookie from 'react-cookies';
 //import { GoogleMap, LoadScript, Marker  } from '@react-google-maps/api';
 //import PropTypes from 'prop-types';
 
@@ -151,7 +152,9 @@ export function Searchbar() {
 
 	function handleOrderRequest(e, id) {
 		localStorage.setItem('restaurantId', id);
-		history.push('/bizdisplay');
+		if(cookie.load('cookie')) {
+		history.push('/bizdisplay');}
+		else history.push('/login/user');
 	}
 
 

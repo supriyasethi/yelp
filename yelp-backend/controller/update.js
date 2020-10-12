@@ -6,18 +6,17 @@ function userprofile(req, res) {
     console.log("Inside Update User Profile Post Request");  
   console.log("Req Body : ",req.body);    
   var sql = "UPDATE user SET \
-        first_name = '" + req.body.state.firstname + "', \
-        last_name = '" + req.body.state.lastname + "', \
-        nickname = '" + req.body.state.nickname	 + "', \
-        date_of_birth = '" + req.body.state.birthday + "', \
-        state = '" + req.body.state.state	 + "', \
-        country = '" + req.body.state.country	+ "', \
-        gender = '" + req.body.state.gender + "', \
-        phone_number = '" + req.body.state.phonenumber + "', \
-        yelping_since = '" + req.body.state.yelpingsince + "', \
-        find_me_in = '" + req.body.state.findmein + "', \
-        profile_img = '" + req.body.picture + "' \
-        WHERE email_id = '"+ req.session.user +"'";
+        first_name = '" + req.body.firstname + "', \
+        last_name = '" + req.body.lastname + "', \
+        nickname = '" + req.body.nickname	 + "', \
+        date_of_birth = '" + req.body.birthday + "', \
+        state = '" + req.body.state	 + "', \
+        country = '" + req.body.country	+ "', \
+        gender = '" + req.body.gender + "', \
+        phone_number = '" + req.body.phonenumber + "', \
+        yelping_since = '" + req.body.yelpingsince + "', \
+        things_i_love = '" + req.body.thingsilove + "', \
+        find_me_in = '" + req.body.findmein + "' \     WHERE userId = '"+ req.body.userId +"'";
   con.query(sql,(err,rows,fields) => {  
     if (!err) {
       if(rows != '') {
@@ -46,14 +45,12 @@ function bizprofile(req, res) {
     console.log("Inside Update Restaurant Profile Post Request");  
   console.log("Req Body : ",req.body);    
   var sql = "UPDATE restaurant SET \
-        name = '" + req.body.state.name + "', \
-        description = '" + req.body.state.description + "', \
-        address = '" + req.body.state.address + "', \
-        timing = '" + req.body.state.timing	 + "', \
-        website = '" + req.body.state.website	+ "', \
-        phonenumber = '" + req.body.state.phonenumber + "', \
-        profileimg = '" + req.body.picture + "' \
-        WHERE email_id = '"+ req.session.user +"'";      
+        name = '" + req.body.name + "', \
+        description = '" + req.body.description + "', \
+        address = '" + req.body.address + "', \
+        timing = '" + req.body.timing	 + "', \
+        website = '" + req.body.website	+ "', \
+        phonenumber = '" + req.body.phonenumber + "' WHERE restaurantId = "+ req.body.restaurantId ;      
         
   con.query(sql,(err,rows,fields) => {  
     if (!err) {

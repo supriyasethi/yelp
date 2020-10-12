@@ -106,7 +106,7 @@ function Orders() {
 				console.log("Status code: ", response.status);
 				if (response.status === 200) {
 					setmsg(<p>Order Updated</p>);
-					history.push("/bizdisplay");
+					history.push("/bizp");
 				}
 			})
 			.catch((error) => {
