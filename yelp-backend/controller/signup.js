@@ -41,7 +41,7 @@ function user(req, res){
     }
 }
 
-function biz(res, req) {
+function biz(req, res) {
     console.log("Inside Signup Post Request");  
   console.log("Req Body : ",req.body);    
     var sql = 

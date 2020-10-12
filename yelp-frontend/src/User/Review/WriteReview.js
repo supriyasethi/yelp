@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid} from '@material-ui/core';
-import Reviewform from './Reviewform.jsx';
+import Reviewform from './Reviewform.js';
 import LoginSignupTopBar from '../../helpers/LoginSignupTopBar';
 //import { useLocation } from "react-router-dom";
 //import { connect } from 'react-redux';

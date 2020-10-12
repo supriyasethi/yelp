@@ -81,16 +81,16 @@ const useStyles = makeStyles( (theme) => ({
     }
 
     function handleSaveChanges() {
-        const fd = new FormData();
-        fd.append(state);
-        fd.append('image', state.picture, state.picture.name);
-        // let profileInfo = {
-        //     state,
-        //     picture
-        // }
+        // const fd = new FormData();
+        // fd.append(state);
+        // fd.append('image', state.picture, state.picture.name);
+        let profileInfo = {
+            state,
+            picture
+        }
 
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/update/userprofile', fd, {
+         axios.post('http://localhost:3001/update/userprofile', state, {
           headers: {
             'Content-Type': 'multipart/form-data' }
           })

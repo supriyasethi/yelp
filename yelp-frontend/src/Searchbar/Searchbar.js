@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import { makeStyles } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
-import { useGoogleMaps } from "react-hook-google-maps";
+//import { GoogleMap, LoadScript, Marker  } from '@react-google-maps/api';
 //import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,12 +39,54 @@ export function Searchbar() {
 	let history = useHistory();
 	const mapRef = useRef(null);
 	const classes = useStyles();
-	const { ref, map, google } = useGoogleMaps('AIzaSyB_V46hZHJWMGf_UQViAlhD90sUrhY9wLc',
+
+	const defaultCenter = {
+		lat: 41.3851, lng: 2.1734
+	  }
+
+	  const locations = [
 		{
-			center: { lat: 0, lng: 0 },
-			zoom: 3,
+		  name: "Location 1",
+		  location: { 
+			lat: 41.3954,
+			lng: 2.162 
 		  },
-		);
+		},
+		{
+		  name: "Location 2",
+		  location: { 
+			lat: 41.3917,
+			lng: 2.1649
+		  },
+		},
+		{
+		  name: "Location 3",
+		  location: { 
+			lat: 41.3773,
+			lng: 2.1585
+		  },
+		},
+		{
+		  name: "Location 4",
+		  location: { 
+			lat: 41.3797,
+			lng: 2.1682
+		  },
+		},
+		{
+		  name: "Location 5",
+		  location: { 
+			lat: 41.4055,
+			lng: 2.1915
+		  },
+		}
+	  ];
+	// const { ref, map, google } = useGoogleMaps('AIzaSyB_V46hZHJWMGf_UQViAlhD90sUrhY9wLc',
+	// 	{
+	// 		center: { lat: 0, lng: 0 },
+	// 		zoom: 3,
+	// 	  },
+	// 	);
 	let [state, setState] = React.useState({
 		find: "",
 		where: "",
@@ -111,6 +153,8 @@ export function Searchbar() {
 		localStorage.setItem('restaurantId', id);
 		history.push('/bizdisplay');
 	}
+
+
 	return (
 		<div>
 			<div className='field has-addons'>
@@ -226,9 +270,7 @@ export function Searchbar() {
 				<Divider />
 			</div>
 
-			<div>
-				<div ref={ref} style={{ width: 400, height: 300 }} />
-			</div>
+			
 		</div>
 	);
 }

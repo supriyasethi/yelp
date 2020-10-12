@@ -1,10 +1,12 @@
 "use strict";
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 //creating mysql database connection
 var connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
+    host: "yelplab1.cnnjxrppwwnv.us-west-1.rds.amazonaws.com",
+    //host: "localhost",
+    user: "master",
+    //user: "root",
     password: "password",
     database: "yelplab1"
   });

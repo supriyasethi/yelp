@@ -57,7 +57,7 @@ const SignupForm = () => {
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {
-                history.push("/homea");
+                history.push("/bizp");
                //dispatch(failure());
          }
      })

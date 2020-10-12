@@ -3,6 +3,7 @@ import React from 'react';
 import logo from '../assets/styleIcon.PNG';
 import {makeStyles} from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
+import cookie from 'react-cookies';
 
 const useStyles = makeStyles( () => ({
     iconStyle : {
@@ -15,9 +16,14 @@ const useStyles = makeStyles( () => ({
 const LoginSignupTopBar = () => {
     let history = useHistory(); 
     const classes = useStyles();
+    
     function handleHomeClick() {
-        history.push("/home");
-    }
+        if (cookie.load('cookie')) {
+        history.push("/homea"); }
+        else {
+            history.push("/homea"); }
+        }
+    
     
     return (
     <AppBar position="static" style={{ background: '#d32323' }}>

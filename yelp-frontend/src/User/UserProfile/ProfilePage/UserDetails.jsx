@@ -51,15 +51,15 @@ export default function InsetDividers() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:3001/get/userp')
-      .then((response) => {
+    // axios.get('http://localhost:3001/get/userp')
+    //   .then((response) => {
          //update the state with the response data
-        console.log(response);
-        setUsername(response.data[0].first_name + ' ' + response.data[0].last_name);
-        setlocation(response.data[0].city + ', ' + response.data[0].state);  
-        setyelpingsince(response.data[0].yelping_since);
-        setthingsilove(response.data[0].things_i_love);
-          });
+        //console.log(response);
+        setUsername(localStorage.getItem('username'));
+        setlocation(localStorage.getItem('location'));  
+        setyelpingsince(localStorage.getItem('yelpingsince'));
+        setthingsilove(localStorage.getItem('thingsilove'));
+          //});
     },[]);
   
   return (
