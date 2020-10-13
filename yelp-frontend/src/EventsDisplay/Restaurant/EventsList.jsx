@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 function EventsList() {
 
-	//let httpURL = 'http://localhost:3001';
+	//let httpURL = "http://localhost:3001";
 	let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
 
@@ -67,7 +67,12 @@ function EventsList() {
 	
     function handleUserProfile(e, id) {  
 	// 	console.log('events', state.events[id]);
-	 	console.log('events', state.events[id].items.userId);
+		const userid = state.events[id].items.userId
+		 console.log('events', state.events[id].items.userId);
+		 //localStorage.setItem('userId', state.events[id].items.userId);
+		 history.push({
+			 pathname: '/userdisplay',
+			 state: {data: userid}});
 	// 	console.log('cookie',Cookies.get("cookie"));
 	// 	//console.log(Cookies);
 	// 	var postInfo =  {

@@ -53,7 +53,7 @@ export default function UserDetails({data}) {
 
 
   useEffect(() => {
-    	//let httpURL = 'http://localhost:3001';
+    //let httpURL = "http://localhost:3001";
 	let httpURL = "http://54.219.75.46:3001";
     console.log('inside user details');
     console.log(data);
@@ -68,7 +68,10 @@ export default function UserDetails({data}) {
     })
       .then((response) => {
          //update the state with the response data
-        console.log(response.data[0].first_name);
+         setUsername(response.data[0].first_name + ' ' + response.data[0].last_name);
+        setlocation(response.data[0].city + ', ' + response.data[0].state);  
+        setyelpingsince(response.data[0].yelping_since);
+        setthingsilove(response.data[0].things_i_love);
         
           });
     },[]);

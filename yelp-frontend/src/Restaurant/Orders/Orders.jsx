@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Orders() {
 
-	//let httpURL = 'http://localhost:3001';
+	//let httpURL = "http://localhost:3001";
 	let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
 	const [checked, setChecked] = React.useState([1]);
@@ -221,6 +221,7 @@ function Orders() {
 													value={state.orderFilter}
 													onChange={(event) => handleChange2(event.target.value)}>
 													<option value='New Orders'>New Orders</option>
+													<option value='Preparing'>Preparing</option>
 													<option value='Delievered Order'>Delievered Order</option>
 													<option value='Cancelled Order'>Cancelled Order</option>
 												</select>

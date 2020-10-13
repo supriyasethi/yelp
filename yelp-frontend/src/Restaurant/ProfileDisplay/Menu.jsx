@@ -44,10 +44,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Menu({data}) {
-
-  //let httpURL = 'http://localhost:3001';
-  let httpURL = "http://54.219.75.46:3001";
-  
+ //let httpURL = "http://localhost:3001";
+ let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
     const [checked, setChecked] = React.useState([1]);
 	let [state, setState] = React.useState({
@@ -62,7 +60,7 @@ function Menu({data}) {
 	useEffect(() => {
         const data = localStorage.getItem('restaurantId');
 		axios.defaults.withCredentials = true;
-		axios.get(httpURL+"/get/menu", {
+		axios.get("http://localhost:3001/get/menu", {
 			params : {
 				restaurantId : data
 			}
@@ -86,19 +84,19 @@ function Menu({data}) {
     let [msg, setmsg] = useState('');
     const rId = localStorage.getItem('restaurantId');
     const uId = localStorage.getItem('userId');
-    // const handleToggle = (value) => () => {
-    //     const currentIndex = checked.indexOf(value);
+    const handleToggle = (value) => () => {
+        const currentIndex = checked.indexOf(value);
         
     
-    //     if (currentIndex === -1) {
-    //       newChecked.push(value);
-    //     } else {
-    //       newChecked.splice(currentIndex, 1);
-    //     }
+        if (currentIndex === -1) {
+          newChecked.push(value);
+        } else {
+          newChecked.splice(currentIndex, 1);
+        }
     
-    //     setChecked(newChecked);
-    //     console.log(newChecked);
-    //   };
+        setChecked(newChecked);
+        console.log(newChecked);
+      };
 
     function handleCancel() {
         history.push('/homea')
@@ -109,23 +107,23 @@ function Menu({data}) {
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-    const handleChangeclick = (id) => {
-      newid.push(id);
-      //setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  //   const handleChangeclick = (id) => {
+  //     newid.push(id);
+  //     //setState({ ...state, [event.target.name]: event.target.checked });
+  // };
    
     function handleOrder() {
             var orderItem ='';
             var id = '';  
             var delieveryoption = '';
         console.log('state', state.menu[0].items.dishName);
-        //for(var i=0; i< newChecked.length; i++) {
-          for(var i=0; i< newid.length; i++) {
-          console.log(newChecked.length);
-            id = newid[i];                        
-            console.log('id',id);
-            orderItem = orderItem + state.menu[id].items.dishName + ',';
-        }
+        for(var i=0; i< newChecked.length; i++) {
+        //   for(var i=0; i< newid.length; i++) {
+           console.log(newChecked.length);
+             id = newChecked[i];                        
+             console.log('id',id);
+             orderItem = orderItem + state.menu[id].items.dishName + ',';
+         }
         console.log('orderItem',orderItem);
         if(state.pickup) {
             delieveryoption = 'PickUp';
@@ -190,11 +188,12 @@ function Menu({data}) {
             </ListItemAvatar>
             <ListItemText style={{fontWeight:"bold"}} primary={listitem.items.dishName} />
             <ListItemSecondaryAction>
-              <Checkbox
-                color="#d32323"
+            <Checkbox
                 edge="end"
-                onChange={handleChangeclick(listitem.id)}                                
+                onChange={handleToggle(listitem.id)}
+                               
               />
+              
             </ListItemSecondaryAction>
           </ListItem>
         ))}      

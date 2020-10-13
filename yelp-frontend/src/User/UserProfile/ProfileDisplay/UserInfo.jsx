@@ -37,7 +37,7 @@ const useStyles = makeStyles( () => ({
 }));
 
  function UserInfo ({data}) {
-   	//let httpURL = 'http://localhost:3001';
+  //let httpURL = "http://localhost:3001";
 	let httpURL = "http://54.219.75.46:3001";
     const location = useLocation();
   let history = useHistory();
@@ -47,6 +47,7 @@ const useStyles = makeStyles( () => ({
 
 
     useEffect(() => {
+      console.log('inside user info');
         var user = location.state.data;
       console.log(user);
     axios.get(httpURL+"/get/userp",{
