@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SignupForm = () => {
         
+    //let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
     let history = useHistory();
     
     const [state, setState] = React.useState({
@@ -53,11 +55,11 @@ const SignupForm = () => {
         console.log('inside handle submit')
         console.log('state', state);        
          axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/signup/biz',state)
+         axios.post(httpURL+"/signup/biz",state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {
-                history.push("/bizp");
+                history.push("/loginbiz");
                //dispatch(failure());
          }
      })

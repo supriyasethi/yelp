@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = ({title, sender}) => {
     let history = useHistory(); 
-    var httpURL = '';
-    
+    var httpURL1 = '';
+    //let httpURL = "http://localhost:3001";
+	let httpURL = "http://54.219.75.46:3001";
      //const dispatch = useDispatch();
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -50,14 +51,14 @@ const LoginForm = ({title, sender}) => {
     
         //history.push('/homea');
         if (sender === 'user') {
-            httpURL = 'http://localhost:3001/login/user';
+            httpURL1 = httpURL+"/login/user";
         } 
         if (sender === 'biz')
         {
-            httpURL = 'http://localhost:3001/login/biz';
+            httpURL1 = httpURL+"/login/biz";
         }
         axios.defaults.withCredentials = true;
-        axios.post(httpURL,loginFormInfo)
+        axios.post(httpURL1,loginFormInfo)
         .then(response => {
             console.log("Status code: ", response.status);
             if(response.status === 200) {                

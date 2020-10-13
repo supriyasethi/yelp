@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EventsList() {
+
+	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
 
 	let [state, setState] = React.useState({
@@ -36,7 +39,7 @@ function EventsList() {
 		
 		res = localStorage.getItem('restaurantId');
         axios.defaults.withCredentials = true;
-		axios.get("http://localhost:3001/get/events",{
+		axios.get(httpURL+"/get/events",{
             params: {
                 restaurantId: res }
             })

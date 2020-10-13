@@ -43,6 +43,9 @@ const useStyles = makeStyles( (theme) => ({
 
  function EventsForm () {
 
+  //let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
+
     const[picture, setpicture] = useState("https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png");
     const [state, setState] = React.useState({        
         eventname: "",
@@ -79,7 +82,7 @@ const useStyles = makeStyles( (theme) => ({
         console.log('state',state);
 
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/insert/event', state)
+         axios.post(httpURL+"/insert/event", state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {

@@ -167,6 +167,7 @@ function fetchbizp(req, res) {
     let restaurantId = req.query.restaurantId;   
   var sql = 
     mysql.format("SELECT * FROM restaurant WHERE restaurantId ="+ restaurantId);
+    console.log(sql);
     con.query(sql, function (err, result) {
       if (err) { 
         console.log(err);         

@@ -45,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Orders() {
 
+	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
     const classes = useStyles();   
 	let history = useHistory();
 	const [checked, setChecked] = React.useState([1]);
@@ -61,7 +63,7 @@ function Orders() {
 		console.log("data", data);
 		axios.defaults.withCredentials = true;
 		axios
-			.get("http://localhost:3001/get/reviews", {
+			.get(httpURL+"/get/reviews", {
 				params: {
 					restaurantId: data,
 				},

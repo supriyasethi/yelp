@@ -43,6 +43,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Info() {
+	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
 	let [name, setname] = useState("");
 	let [address, setaddress] = useState("");
@@ -53,7 +55,7 @@ function Info() {
 	useEffect(() => {
         const data = localStorage.getItem('restaurantId');
 		axios.defaults.withCredentials = true;
-		axios.get("http://localhost:3001/get/bizp",
+		axios.get(httpURL+"/get/bizp",
 		{params : {
 			restaurantId: data
 		  }}

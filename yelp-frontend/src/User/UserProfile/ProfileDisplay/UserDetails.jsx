@@ -53,13 +53,15 @@ export default function UserDetails({data}) {
 
 
   useEffect(() => {
+    	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
     console.log('inside user details');
     console.log(data);
     const userId = localStorage.getItem('userId');
     
       console.log('user', userId);
       axios.defaults.withCredentials = true;
-    axios.get('http://localhost:3001/get/userp', {
+    axios.get(httpURL+"/get/userp", {
         params: {
             userId : userId
         }

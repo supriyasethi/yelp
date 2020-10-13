@@ -43,7 +43,8 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
  function ProfileInfo () {
-
+//let httpURL = 'http://localhost:3001';
+let httpURL = "http://54.219.75.46:3001";
     const[picture, setpicture] = useState("https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_styleguide/7e4e0dfd903f/assets/img/default_avatars/user_large_square.png");
     const [state, setState] = React.useState({        
         name: "",        
@@ -82,7 +83,7 @@ const useStyles = makeStyles( (theme) => ({
           picture
         }
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/update/bizprofile', state)
+         axios.post(httpURL+"/update/bizprofile", state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {

@@ -39,6 +39,8 @@ const useStyles = makeStyles( () => ({
 
  function UserInfo ({data}) {
 
+  //let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
   let history = useHistory();
     let [username, setUsername] = useState('');
     let [location, setlocation] = useState('');
@@ -50,7 +52,7 @@ const useStyles = makeStyles( () => ({
       const userId = localStorage.getItem('userId');
       console.log('inside user info');
       console.log(userId);
-    axios.get('http://localhost:3001/get/userp',{
+    axios.get(httpURL+"/get/userp",{
       params: {
         userId : userId
       }

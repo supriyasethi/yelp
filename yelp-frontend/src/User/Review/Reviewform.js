@@ -28,6 +28,9 @@ const useStyles = makeStyles( (theme) => ({
 }));
 
 const Reviewform = () => {
+
+    //let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
     let history = useHistory();    
     
      //const dispatch = useDispatch();
@@ -66,7 +69,7 @@ const Reviewform = () => {
                    
         console.log(state);
         axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/insert/reviews', state)
+         axios.post(httpURL+"/insert/reviews", state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {

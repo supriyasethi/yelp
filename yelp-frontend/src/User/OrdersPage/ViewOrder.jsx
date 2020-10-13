@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ViewOrder() {
+
+	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
 	const [checked, setChecked] = React.useState([1]);
 	let [state, setState] = React.useState({
@@ -59,7 +62,7 @@ function ViewOrder() {
 		console.log("data", data);
 		axios.defaults.withCredentials = true;
 		axios
-			.get("http://localhost:3001/get/vieworder", {
+			.get(httpURL+"/get/vieworder", {
 				params: {
 					userId: data,
 				},

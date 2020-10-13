@@ -46,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ListInfo() {
+	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
 	const [checked, setChecked] = React.useState([1]);
 	let [state, setState] = React.useState({
@@ -62,7 +64,7 @@ function ListInfo() {
 		console.log("data", data);
 		axios.defaults.withCredentials = true;
 		axios
-			.get("http://localhost:3001/get/bizlist", {
+			.get(httpURL+"/get/bizlist", {
 				params: {
 					userId: data,
 				},
@@ -109,7 +111,7 @@ function ListInfo() {
         console.log('orderinfo', orderInfo);
 		axios.defaults.withCredentials = true;
 		axios
-			.post("http://localhost:3001/update/order", orderInfo)
+			.post(httpURL+"/update/order", orderInfo)
 			.then((response) => {
 				console.log("Status code: ", response.status);
 				if (response.status === 200) {

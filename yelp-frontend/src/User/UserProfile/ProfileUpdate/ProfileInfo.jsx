@@ -53,6 +53,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProfileInfo() {
+	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
 	const [picture, setpicture] = useState();
 	const [picname, setpicname] = useState("Your Profile Photo");
 	const [uploadedFile, setUploadedFile] = useState({});
@@ -102,7 +104,7 @@ function ProfileInfo() {
     e.preventDefault();
     axios.defaults.withCredentials = true;
     try{
-      const res = await axios.post("http://localhost:3001/upload", data, {
+      const res = await axios.post(httpURL+"/upload", data, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},
@@ -131,7 +133,7 @@ function ProfileInfo() {
 		console.log(state);
 		axios.defaults.withCredentials = true;
 		axios
-			.post("http://localhost:3001/update/userprofile", state)
+			.post(httpURL+"/update/userprofile", state)
 			.then((response) => {
 				console.log("Status code: ", response.status);
 				if (response.status === 200) {

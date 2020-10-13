@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Menu({data}) {
+
+  //let httpURL = 'http://localhost:3001';
+  let httpURL = "http://54.219.75.46:3001";
+  
 	let history = useHistory();
     const [checked, setChecked] = React.useState([1]);
 	let [state, setState] = React.useState({
@@ -58,7 +62,7 @@ function Menu({data}) {
 	useEffect(() => {
         const data = localStorage.getItem('restaurantId');
 		axios.defaults.withCredentials = true;
-		axios.get("http://localhost:3001/get/menu", {
+		axios.get(httpURL+"/get/menu", {
 			params : {
 				restaurantId : data
 			}

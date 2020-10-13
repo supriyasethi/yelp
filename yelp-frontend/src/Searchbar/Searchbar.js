@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Searchbar() {
+
+	//let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
 	let history = useHistory();
 	const mapRef = useRef(null);
 	const classes = useStyles();
@@ -108,7 +111,7 @@ export function Searchbar() {
 
 	function handleSearch() {
 		axios
-			.get("http://localhost:3001/get/home", {
+			.get(httpURL+"/get/home", {
 				params: {
 					keyword: state.find,
 					location: state.where,

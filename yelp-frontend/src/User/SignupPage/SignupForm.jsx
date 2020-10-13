@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const SignupForm = () => {
+
+    //let httpURL = 'http://localhost:3001';
+	let httpURL = "http://54.219.75.46:3001";
     let redirect = '';
     //const dispatch = useDispatch();
     let history = useHistory();
@@ -58,11 +61,11 @@ const SignupForm = () => {
         console.log('state', state);
         
          axios.defaults.withCredentials = true;
-         axios.post('http://localhost:3001/signup/user', state)
+         axios.post(httpURL+"/signup/user", state)
          .then(response => {
              console.log("Status code: ", response.status);
              if(response.status === 200) {
-                history.push("/homea");
+                history.push("/login");
                
          }
      })

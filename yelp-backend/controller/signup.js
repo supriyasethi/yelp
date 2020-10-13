@@ -46,6 +46,7 @@ function biz(req, res) {
   console.log("Req Body : ",req.body);    
     var sql = 
       mysql.format("INSERT INTO yelplab1.restaurant (name, email_id, city) VALUES('"+req.body.name+"','" +req.body.username+"','" +req.body.city+"')");
+      console.log(sql);
       con.query(sql, function (err, result) {
       if (err) {          
         res.status(401).send(err);      
@@ -53,6 +54,7 @@ function biz(req, res) {
       else {
       console.log( result);
       sql = mysql.format("INSERT INTO yelplab1.loginr (username, password, restaurantId) VALUES('"+ req.body.username+"','" +req.body.password+"'," + result.insertId+")");
+      console.log(sql);
       con.query(sql, function (err, result) {
         if (err) {         
         res.status(401).send(err);
